@@ -1,0 +1,54 @@
+export PATH="/usr/local/bin:$PATH"
+
+# TODO: have a host-dotfile (~/dotfiles/hosts/crystal)
+# Load all aliases from this file
+# hostname -s
+
+# Crystal-specific things (OS X)
+if [ `hostname` = "crystal" ]; then
+    alias ls-color="/bin/ls -G"
+    export PATH="$PATH:/Users/jesse/Dropbox/scripts"
+    export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+elif [ $(grep "gunsch-macbookair" <<< $(hostname)) ]; then
+    alias ls-color="/bin/ls -G"
+    export PATH="$PATH:/Users/gunsch/src/depot_tools:/usr/local/share/npm/bin:/Users/gunsch/bin"
+    alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+elif [ `hostname` = "georgemichael" ]; then
+    export PATH="$PATH:/root/bin"
+    alias ack="ack-grep -i"
+else
+    alias ls-color="/bin/ls -G"
+fi
+
+alias gunsch="ssh gunsch.mtv.corp.google.com"
+alias powerthirst="ssh powerthirst.mtv.corp.google.com"
+alias desk=powerthirst
+alias mounthome="sshfs powerthirst.mtv.corp.google.com:/usr/local/google/code /Users/gunsch/code"
+
+# Google tools
+export GREP_COLOR='1;32'
+export EDITOR='vi'
+
+# Files/command-line stuff
+alias please='sudo $(history | tail -n 1 | cut -d"'" "'" -f4-)'
+alias histfind='history -n 100 | egrep'
+alias duh='du -h | egrep "^[0-9. ]+G"'
+cu() { if [ "$1" = "" ]; then cd ..; else for i in `seq 1 $1`; do cd ..; done; fi } 
+
+# LS things
+alias ls="ls-color -h"
+alias l="ls -l"
+alias la="ls -a"
+alias ll="l"
+alias lr="ls -lrt"
+
+alias top="htop"
+
+# Useful functions
+graphviz(){ dot -Tpng -o$1.png $1 };
+graphvizu(){ neato -Tpng -o$1.png $1 };
+alias ep="resource"
+alias deref="cd \$(pwd -P)"
+alias rescreen='screen -raAd'
+
+

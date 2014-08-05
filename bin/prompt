@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Prompt for y/n. Returns 0 (yes) or 1 (no).
+
+while true; do
+  read -p "${1}? [Y/n] " yn
+  case $yn in
+      [Yy]* ) exit 0;;
+      [Nn]* ) exit 1;;
+  esac
+done

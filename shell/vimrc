@@ -1,0 +1,47 @@
+" Navigation shortcuts
+map <C-J> <C-W>j
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+map <C-K> <C-W>k
+set wmh=0
+
+" Colors/colorscheme
+" colorscheme inkpot
+let &t_Co=256
+filetype on
+
+" Tabs/indents
+set autoindent
+set expandtab
+set ts=2
+set shiftwidth=2
+set shiftround
+set softtabstop=2
+
+" Numbers, lines
+set number
+set ruler
+
+" Cursor line
+autocmd WinEnter * setlocal cursorline
+autocmd BufEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+setlocal cursorline
+
+" backups
+set backupdir-=.
+set backupdir^=/tmp
+
+" <C-space> maps to autocomplete
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
+
+" <C-t> maps to fuzzy file matcher
+nmap <C-t> :FufFile<CR>
+nmap <C-p> :FufFileWithCurrentBufferDir<CR>
+
+
