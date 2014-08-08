@@ -45,7 +45,7 @@ function download() {
   fi;
 
   echo "Downloading $1...";
-  mkdir -p download
+  mkdir -p "$DOT/download";
   curl "$1" --silent -o "${download_output}"
 }
 
