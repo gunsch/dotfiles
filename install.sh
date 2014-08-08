@@ -76,6 +76,7 @@ DOT="$($READLINK -f ~/dotfiles)";
 symlink $DOT/shell/zshrc ~/.zshrc
 symlink $DOT/shell/bashrc ~/.bashrc
 symlink $DOT/shell/vimrc ~/.vimrc
+symlink $DOT/bin ~/bin
 
 # 3) Sublime Text alias: OS-specific
 if [[ "$(uname -s)" == "Darwin" ]]; then

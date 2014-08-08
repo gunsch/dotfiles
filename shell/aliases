@@ -18,6 +18,9 @@ HOMEDIR="$(cd ~ && pwd -P)"
 # Constant paths.
 export PATH="/usr/local/bin:${PATH}"
 export PATH="${PATH}:${HOMEDIR}/bin"
+if [ -d "${HOMEDIR}/bin/proprietary" ]; then
+  export PATH="${PATH}:${HOMEDIR}/bin/proprietary"
+fi
 
 # System-wide constants.
 export GREP_COLOR='1;32'
