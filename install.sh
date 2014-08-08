@@ -5,30 +5,48 @@ set -e;
 
 function symlink() {
   if [[ $# -lt 2 ]]; then
-    echo "Too few args to link";
+    echo "Too few args to symlink";
     exit 1;
   fi;
 
-  echo "#########"
-  echo "Symlinking $2...";
   if [[ -e $2 ]]; then
-    if [[ "$($READLINK -f $1)" != "$($READLINK -f $2)" ]]; then
-      local prefixed_backup_location="$($DOT/bin/relpath $1)"
-      local backup_location="$DOT/backups/${prefixed_backup_location#dotfiles/}";
-      local printable_backup_location="~/$($DOT/bin/relpath ${backup_location})"
+    if [[ "$($READLINK -f "$1")" == "$($READLINK -f "$2")" ]]; then
+      # The file already exists, and it's the same symlink.
+      return;
+    fi
 
-      echo "- $2 already exists. Replace with $1?";
-      if $DOT/bin/prompt "- $2 will be backed up at ${printable_backup_location})"; then
-        mkdir -p "$(dirname "${backup_location}")";
-        mv $2 $backup_location;
-        # Fall through to symlinking.
-      else
-        return;
-      fi
+    local prefixed_backup_location="$($DOT/bin/relpath $1)"
+    local backup_location="$DOT/backups/${prefixed_backup_location#dotfiles/}";
+    local printable_backup_location="~/$($DOT/bin/relpath ${backup_location})"
+
+    echo "- $2 already exists. Replace with $1?";
+    if $DOT/bin/prompt "- $2 will be backed up at ${printable_backup_location})"; then
+      mkdir -p "$(dirname "${backup_location}")";
+      mv "$2" "${backup_location}";
+      # Fall through to symlinking.
+    else
+      return;
     fi;
   fi;
 
-  ln -s $1 $2;
+  echo "Symlinking $2...";
+  ln -s "$1" "$2";
+}
+
+function download() {
+  if [[ $# -lt 2 ]]; then
+    echo "Too few args to download";
+    exit 1;
+  fi;
+
+  local download_output="$DOT/download/${2}"
+  if [[ -e "${download_output}" ]]; then
+    return;
+  fi;
+
+  echo "Downloading $1...";
+  mkdir -p download
+  curl "$1" --silent -o "${download_output}"
 }
 
 
@@ -69,3 +87,8 @@ fi
 # 4) Prompt for password and write it to $DOT/password.
 # This is used to authenticate server-side tools.
 # TODO
+
+# 5) Download other libraries as needed.
+download \
+    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+    git-completion.bash

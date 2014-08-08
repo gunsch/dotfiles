@@ -1,0 +1,95 @@
+# Git aliases/etc.
+
+# TODO better place for these.
+# Random source-control interesting things.
+#alias fix_whitespace="files | xargs sed --in-place 's/[[:space:]]\+$//'"
+#alias nocolor="sed -r \"s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g\""
+#alias lines="nocolor | egrep '(^\+[^+])|(^-[^-])' | wc -l"
+
+# Git aliases
+alias got=git
+alias rebase="git rebase"
+alias pick="git cherry-pick"
+alias amend="git commit --amend --reuse-message=HEAD"
+alias files="git ls-files -m"
+
+alias b="git branch"
+alias c="git checkout"
+alias d="git diff"
+#alias m="git commit -a -m"
+alias s="git status"
+alias x="git5 export"
+
+if [ "$CURRENT_SHELL" = "bash" ]; then
+  # Enable git completion for "c" and "b"
+  if [ -f ~/dotfiles/download/git-completion.bash ]; then
+      . ~/dotfiles/download/git-completion.bash;
+
+      function __git_checkout_complete() {
+        local cur="$2"
+        case "$cur" in
+        --conflict=*)
+          __gitcomp "diff3 merge" "" "${cur##--conflict=}"
+          ;;
+        --*)
+          __gitcomp "
+            --quiet --ours --theirs --track --no-track --merge
+            --conflict= --orphan --patch
+            "
+          ;;
+        *)
+          # check if --track, --no-track, or --no-guess was specified
+          # if so, disable DWIM mode
+          local flags="--track --no-track --no-guess" track=1
+          __gitcomp "$(__git_refs '' $track)" "" "$cur"
+          ;;
+        esac
+      }
+
+      complete -o nospace -o default -o bashdefault -F __git_checkout_complete c
+
+      __git_branch_complete ()
+      {
+          local i c=1 only_local_ref="n" has_r="n"
+          local cur="$2"
+          case "$cur" in
+          --set-upstream-to=*)
+              __gitcomp "$(__git_refs)" "" "${cur##--set-upstream-to=}"
+              ;;
+          --*)
+              __gitcomp "
+                  --color --no-color --verbose --abbrev= --no-abbrev
+                  --track --no-track --contains --merged --no-merged
+                  --set-upstream-to= --edit-description --list
+                  --unset-upstream
+                  "
+              ;;
+          *)
+              if [ $only_local_ref = "y" -a $has_r = "n" ]; then
+                  __gitcomp_nl "$(__git_heads)"
+              else
+                  __gitcomp_nl "$(__git_refs)"
+              fi
+              ;;
+          esac
+      }
+      complete -o nospace -o default -o bashdefault -F __git_branch_complete b
+  fi
+fi
+
+
+# Replays the most recent commit from a branch onto an older branch that may
+# have diverged (usually an amended commit).
+function replay_onto() {
+  echo "Usage: replay_onto <original_branch> <[new_branch_name]>"
+  if [ $# -lt 1 ]; then return; fi;
+  git format-patch HEAD^ --stdout > /tmp/rebase;
+  git checkout $1;
+  git checkout --track -B tmp-rebase;
+  git branch --set-upstream-to=$1;
+  git am /tmp/rebase;
+  if [ $# -gt 1 ]; then
+    git branch -m $2;
+  fi;
+}
+

@@ -1,54 +1,85 @@
-export PATH="/usr/local/bin:$PATH"
+###########################################
+# Main entry point for loading aliases and other shell configurations.
 
-# TODO: have a host-dotfile (~/dotfiles/hosts/crystal)
-# Load all aliases from this file
-# hostname -s
+###########################################
+## Constants
 
-# Crystal-specific things (OS X)
-if [ `hostname` = "crystal" ]; then
-    alias ls-color="/bin/ls -G"
-    export PATH="$PATH:/Users/jesse/Dropbox/scripts"
-    export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
-elif [ $(grep "gunsch-macbookair" <<< $(hostname)) ]; then
-    alias ls-color="/bin/ls -G"
-    export PATH="$PATH:/Users/gunsch/src/depot_tools:/usr/local/share/npm/bin:/Users/gunsch/bin"
-    alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-elif [ `hostname` = "georgemichael" ]; then
-    export PATH="$PATH:/root/bin"
-    alias ack="ack-grep -i"
+if [ "$CURRENT_SHELL" = "bash" ]; then
+  SCRIPT_PATH="${BASH_SOURCE[0]}"
 else
-    alias ls-color="/bin/ls -G"
+  SCRIPT_PATH="$0"
 fi
 
-alias gunsch="ssh gunsch.mtv.corp.google.com"
-alias powerthirst="ssh powerthirst.mtv.corp.google.com"
-alias desk=powerthirst
-alias mounthome="sshfs powerthirst.mtv.corp.google.com:/usr/local/google/code /Users/gunsch/code"
+HOSTNAME="$(hostname -s)"
+SHELLDIR="$(dirname $SCRIPT_PATH)"
+OSNAME="$(uname -s)"
+HOMEDIR="$(cd ~ && pwd -P)"
 
-# Google tools
+# Constant paths.
+export PATH="/usr/local/bin:${PATH}"
+export PATH="${PATH}:${HOMEDIR}/bin"
+
+# System-wide constants.
 export GREP_COLOR='1;32'
 export EDITOR='vi'
 
+###########################################
+## Other files to load
+
+# Source hostname-specific rules.
+if [ -f "${SHELLDIR}/host/${HOSTNAME}" ]; then
+  echo "Loading host config for ${HOSTNAME}";
+  . "${SHELLDIR}/host/${HOSTNAME}";
+fi
+
+# Source OS-specific rules.
+if [ -f "${SHELLDIR}/os/${OSNAME}" ]; then
+  echo "Loading OS config for ${OSNAME}";
+  . "${SHELLDIR}/os/${OSNAME}";
+fi
+
+# Source proprietary rules.
+if [ -d "${SHELLDIR}/proprietary" ]; then
+  for proprietary_file in "${SHELLDIR}/proprietary/*"; do
+    echo "Loading ${proprietary_file}";
+    . "${proprietary_file}";
+  done
+fi
+
+# Source other sets of things.
+. "${SHELLDIR}/git"             # Git aliases
+
+
+###########################################
+## Assorted aliases.
+## Move to their own files as categories emerge.
+
 # Files/command-line stuff
-alias please='sudo $(history | tail -n 1 | cut -d"'" "'" -f4-)'
 alias histfind='history -n 100 | egrep'
 alias duh='du -h | egrep "^[0-9. ]+G"'
-cu() { if [ "$1" = "" ]; then cd ..; else for i in `seq 1 $1`; do cd ..; done; fi } 
 
-# LS things
+# LS aliases. Assume ls-color is set by OS-specific.
 alias ls="ls-color -h"
-alias l="ls -l"
-alias la="ls -a"
-alias ll="l"
+alias l="ls -lF"
+alias la="ls -A"
+alias ll="ls -alF"
 alias lr="ls -lrt"
 
-alias top="htop"
+# Faster navigation.
+cu() { if [ "$1" = "" ]; then cd ..; else for i in `seq 1 $1`; do cd ..; done; fi } 
 
-# Useful functions
-graphviz(){ dot -Tpng -o$1.png $1 };
-graphvizu(){ neato -Tpng -o$1.png $1 };
-alias ep="resource"
-alias deref="cd \$(pwd -P)"
+# Prefer htop if available.
+if which htop 21>/dev/null; then
+  alias top="htop"
+fi
+
+# Screen.
 alias rescreen='screen -raAd'
 
+alias ackgyp='ack --type=gyp'
+alias ackjs='ack --type=js'
+alias ackjava='ack --type=java'
+alias ackcc='ack --type=cpp'
 
+# TODO:
+# JS shell scripts. (Where/how to best store JARs? Download to download/jar/).

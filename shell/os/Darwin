@@ -1,0 +1,4 @@
+# OS-specific rules.
+
+alias ls-color="/bin/ls -G"
+alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"

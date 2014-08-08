@@ -1,5 +1,10 @@
-# Set up the prompt
+#####################################
+# Shell setup entrypoint for zsh.
 
+# Used in dotfile scripts.
+export CURRENT_SHELL="zsh"
+
+# Set up the prompt
 autoload -Uz promptinit
 promptinit
 prompt walters

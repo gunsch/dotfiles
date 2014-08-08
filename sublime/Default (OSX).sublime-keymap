@@ -1,0 +1,61 @@
+[
+  { "keys": ["super+alt+o"], "command": "switch_file", "args": {"extensions": ["cpp", "cxx", "cc", "c", "hpp", "hxx", "h", "ipp", "inl", "m", "mm"]} },
+  { "keys": ["alt+o"], "command": "switch_file", "args": {"extensions": ["cpp", "cxx", "cc", "c", "hpp", "hxx", "h", "ipp", "inl", "m", "mm"]} },
+
+  {"keys": ["ctrl+m"], "command": "mark_and_move_do_it_all"},
+  {"keys": ["super+ctrl+m"], "command": "mark_and_move_clear"},
+  {"keys": ["super+shift+m"], "command": "mark_and_move_recall"},
+  { "keys": ["super+left"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+  { "keys": ["super+right"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+  { "keys": ["super+shift+left"], "command": "move_to", "args": {"to": "bol", "extend": true} },
+  { "keys": ["super+shift+right"], "command": "move_to", "args": {"to": "eol", "extend": true} },
+  { "keys": ["shift+home"], "command": "move_to", "args": {"to": "bol", "extend": true} },
+  { "keys": ["shift+end"], "command": "move_to", "args": {"to": "eol", "extend": true} },
+  { "keys": ["super+shift+home"], "command": "move_to", "args": {"to": "bol", "extend": true} },
+  { "keys": ["super+shift+end"], "command": "move_to", "args": {"to": "eol", "extend": true} },
+  { "keys": ["home"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+  { "keys": ["end"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+  { "keys": ["super+shift+up"], "command": "move_to", "args": {"to": "bof", "extend": true} },
+  { "keys": ["super+shift+down"], "command": "move_to", "args": {"to": "eof", "extend": true} },
+  { "keys": ["ctrl+shift+up"], "command": "swap_line_up" },
+  { "keys": ["ctrl+shift+down"], "command": "swap_line_down" },
+  { "keys": ["alt+up"], "command": "select_lines", "args": {"forward": false} },
+  { "keys": ["alt+down"], "command": "select_lines", "args": {"forward": true} },
+  { "keys": ["shift+super+d"], "command": "find_all_under" },
+
+  {
+    "keys": ["super+alt+3"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 0.5, 1.0],
+      "cells": [[0, 0, 1, 2], [1, 0, 2, 1], [1, 1, 2, 2]]
+    }
+  },
+  {
+    "keys": ["super+alt+4"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 0.5, 1.0],
+      "cells":
+      [
+        [0, 0, 1, 1], [1, 0, 2, 1],
+        [0, 1, 1, 2], [1, 1, 2, 2]
+      ]
+    }
+  },
+  {
+    "keys": ["super+alt+7"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 0.5, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 2], [0, 1, 1, 2]]
+    }
+  }
+
+]

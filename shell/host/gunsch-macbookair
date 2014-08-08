@@ -1,0 +1,5 @@
+# Rules for gunsch-macbookair.
+
+alias powerthirst="ssh powerthirst.mtv.corp.google.com"
+alias desk=powerthirst
+alias mounthome="sshfs powerthirst.mtv.corp.google.com:/usr/local/google/code /Users/gunsch/code"

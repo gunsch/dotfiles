@@ -1,0 +1,26 @@
+# Linux-specific rules. Generally expected Ubuntu.
+
+# LS and grep colorizing for linux.
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls-color="/bin/ls --color=auto"
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# Grep likes colors too.
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# ack comes as ack-grep
+alias ack="ack-grep -i"
+
+# Finding files with Linux 'find'
+alias fn='/usr/bin/find -name'
+find1() { /usr/bin/find -name $@ | head -1; }
+
+# Network aliases.
+alias ports="netstat -tulpn"
