@@ -24,3 +24,6 @@ find1() { /usr/bin/find -name $@ | head -1; }
 
 # Network aliases.
 alias ports="netstat -tulpn"
+
+# Open for Ubuntu!
+alias open=xdg-open

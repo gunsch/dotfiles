@@ -76,13 +76,32 @@ if which htop 21>/dev/null; then
   alias top="htop"
 fi
 
-# Screen.
+# Screen/byobu
 alias rescreen='screen -raAd'
+alias bs="byobu new -s"
+alias br="byobu-select-session"
+alias bl="byobu list-sessions"
 
+
+# Searching/replacing.
 alias ackgyp='ack --type=gyp'
 alias ackjs='ack --type=js'
 alias ackjava='ack --type=java'
 alias ackcc='ack --type=cpp'
+
+function ack_replace() {
+  if ! git diff-files --quiet --ignore-submodules; then
+    echo "No unstaged changes before using ack_replace.";
+    return -1;
+  fi
+  if [ $# -ne 2 ]; then
+    echo "Usage: ack_replace <find> <replace>";
+    return -1;
+  fi
+  ack-grep $1 -l | xargs perl -i -pe "s#$1#$2#g";
+  # Show git diff, because that's what you'll do anyways :)
+  git diff;
+}
 
 # TODO:
 # JS shell scripts. (Where/how to best store JARs? Download to download/jar/).
