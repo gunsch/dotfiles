@@ -9,6 +9,7 @@ if [[ $# -lt 1 ]]; then
   exit 1;
 fi
 
+cd $1;
 
 STATUS_FILENAME="last.result"
 COMMIT_FILENAME="last.commit"
@@ -18,7 +19,6 @@ LAST_RESULT="$(cat ${STATUS_FILENAME} 2>/dev/null || echo -n "${SUCCESS_STR}")"
 LAST_RESULT_COMMIT="$(cat ${COMMIT_FILENAME} 2>/dev/null || echo -n "")"
 BINDIR="$(dirname $0)"
 
-cd $1;
 if $BINDIR/build_cast_shell.sh ${1}/src; then
   # Success.
   NEW_RESULT="${SUCCESS_STR}"
@@ -32,15 +32,18 @@ echo "${NEW_COMMIT}" > ${COMMIT_FILENAME}
 
 # What happened last time?
 if [[ "${LAST_RESULT}" != "${NEW_RESULT}" ]]; then
-  # TODO
-  echo "Email Jesse here. Was ${LAST_RESULT}, now ${NEW_RESULT}"
-  echo "Last ${LAST_RESULT} happened at:"
-  echo "================================"
-  echo "${LAST_RESULT_COMMIT}"
-  echo "================================"
-  echo "Current ${NEW_RESULT} happened at:"
-  echo "================================"
-  echo "${NEW_COMMIT}"
-  echo "================================"
+  cat <<END | email -t "gunsch@google.com" -s "Chromium build status: ${NEW_RESULT}"
+Was ${LAST_RESULT}, now ${NEW_RESULT}
+Current ${NEW_RESULT} happened at:
+================================
+${NEW_COMMIT}
+================================
+
+
+Last ${LAST_RESULT} happened at:
+================================
+${LAST_RESULT_COMMIT}
+================================
+END
 fi
 
