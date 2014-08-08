@@ -1,0 +1,45 @@
+<snippet>
+    <content><![CDATA[goog.provide('ewokui.${2:Class}');
+
+goog.require('goog.dom');
+goog.require('${3:goog.ui.Component}');
+
+
+
+/**
+ * ${1:Constructor description}
+ * @constructor
+ * @extends {${3:goog.ui.Component}}
+ */
+ewokui.${2:Class} = function() {
+  goog.base(this);
+};
+goog.inherits(ewokui.${2:Class}, ${3:goog.ui.Component});
+
+
+/** @override */
+ewokui.${2:Class}.prototype.disposeInternal = function() {
+  goog.base(this, 'disposeInternal');
+  ewokui.disposable.autoDispose(this);
+};
+
+
+/** @override */
+ewokui.${2:Class}.prototype.createDom = function() {
+  goog.base(this, 'createDom');
+
+  ${4:// body...}
+};
+
+
+/** @override */
+ewokui.${2:Class}.prototype.enterDocument = function() {
+  goog.base(this, 'enterDocument');
+
+  ${5:// body...}
+};
+
+]]></content>
+    <tabTrigger>component</tabTrigger>
+    <description>goog.ui.Component</description>
+</snippet>

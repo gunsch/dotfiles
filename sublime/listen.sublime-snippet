@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[goog.events.listen(${1:component}, goog.events.EventType.${2:CHANGE},
+    ${4:this}.${3:function}, false, ${4:this});
+]]></content>
+    <tabTrigger>listen</tabTrigger>
+    <scope>source.js</scope>
+    <description>goog.events.listen</description>
+</snippet>

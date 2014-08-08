@@ -1,0 +1,7 @@
+<snippet>
+    <content><![CDATA[base::debug::StackTrace blah;
+LOG(INFO) << "Jesse: " << blah.ToString();
+]]></content>
+    <tabTrigger>stacktrace</tabTrigger>
+    <description>stack trace</description>
+</snippet>

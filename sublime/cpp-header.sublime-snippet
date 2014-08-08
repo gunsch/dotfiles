@@ -1,0 +1,18 @@
+<snippet>
+  <content><![CDATA[
+// Copyright 2014 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef ${1:CHROMECAST}_H_
+#define ${1:CHROMECAST}_H_
+
+${2:}
+
+#endif  // ${1:CHROMECAST}_H_
+
+]]></content>
+  <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+  <tabTrigger>ifndef-header</tabTrigger>
+  <description>C++ Header</description>
+</snippet>
