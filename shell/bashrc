@@ -75,3 +75,7 @@ function __prompt_command() {
     PS1+=$__LOCAL_PS1;
     return $status;
 }
+
+# Bash-specific aliases.
+alias resource="vi ~/.bashrc && source ~/.bashrc"
+alias sz="source ~/.bashrc"

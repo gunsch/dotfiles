@@ -43,7 +43,7 @@ fi
 
 # Source proprietary rules.
 if [ -d "${SHELLDIR}/proprietary" ]; then
-  for proprietary_file in "${SHELLDIR}/proprietary/*"; do
+  for proprietary_file in "${SHELLDIR}/proprietary/"*; do
     echo "Loading ${proprietary_file}";
     . "${proprietary_file}";
   done

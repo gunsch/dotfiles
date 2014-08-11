@@ -17,19 +17,6 @@ alias adb=/etc/adt/sdk/platform-tools/adb
 alias sublime="/usr/local/google/home/gunsch/Downloads/Sublime\ Text\ 2/sublime_text"
 alias subl=sublime
 
-# On startup, cd to default location
-if [[ -z "$ALREADY_DID_CD_HOME" ]]; then
-  export ALREADY_DID_CD_HOME=$HOME
-  # can't get -o to work for some reason
-  if [[ `pwd` = ${HOME%/} ]]; then
-    cdc; cd unfork_m37/chromium/src/;
-  fi
-  if [[ `pwd` = $HOME ]]; then
-    cdc; cd unfork_m37/chromium/src/;
-  fi
-fi
-
-
 # JS shell. Find a way to generalize.
 function js() {
   java -cp "/usr/local/google/home/gunsch/jar/*" org.mozilla.javascript.tools.shell.Main \

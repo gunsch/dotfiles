@@ -9,6 +9,10 @@ if [[ $# -lt 1 ]]; then
   exit 1;
 fi
 
+# Put whole script under lock.
+(
+flock -n 9 || exit 1;
+
 cd $1;
 
 STATUS_FILENAME="last.result"
@@ -47,3 +51,6 @@ ${LAST_RESULT_COMMIT}
 END
 fi
 
+
+# End of lock.
+) 9>/var/lock/chromium-lockfile
