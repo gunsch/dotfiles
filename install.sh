@@ -56,8 +56,12 @@ function download() {
 # Find "readlink".
 if [[ "$(uname -s)" == "Darwin" ]]; then
   if [[ ! $(which greadlink) ]]; then
-    echo "greadlink not found. Try \`brew install coreutils\`";
-    exit 1;
+    echo "greadlink not found. Trying \`brew install coreutils\`";
+    if [[ ! $(which brew) ]]; then
+      echo "brew not found. Trying to install...";
+      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+    brew install coreutils;
   fi;
   READLINK="greadlink"
 else
@@ -75,6 +79,7 @@ DOT="$($READLINK -f ~/dotfiles)";
 # 2) Link standard alias files
 symlink $DOT/shell/zshrc ~/.zshrc
 symlink $DOT/shell/bashrc ~/.bashrc
+symlink $DOT/shell/bashrc ~/.bash_profile
 symlink $DOT/shell/vimrc ~/.vimrc
 symlink $DOT/bin ~/bin
 
@@ -93,3 +98,4 @@ fi
 download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash
+
