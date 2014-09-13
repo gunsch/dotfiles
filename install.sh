@@ -99,3 +99,8 @@ download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash
 
+# 6) OS-specific setup.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  $DOT/install/osx.sh
+fi
+
