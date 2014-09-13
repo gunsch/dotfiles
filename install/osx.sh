@@ -1,3 +1,11 @@
+# OSX-specific setup.
+
+if [[ ! $(which brew) ]]; then
+  echo "brew not found. Trying to install...";
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+  sudo chown $USER /usr/local
+fi
 
 brew install ack
 brew install coreutils
@@ -11,6 +19,9 @@ brew cask install alfred
 brew cask install caffeine
 # Formerly PCKeyboardHack
 brew cask install seil
+
+# Ask brew if everything is okay
+brew doctor
 
 # Enable trackpad tap to click for this user and for the login screen.
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true

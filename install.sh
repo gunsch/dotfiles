@@ -53,15 +53,18 @@ function download() {
 ##############################################
 # Installer start.
 
+DOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# 0) OS-specific setup. Make sure we have brew and expected utilities.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  $DOT/install/osx.sh
+fi
+
 # Find "readlink".
 if [[ "$(uname -s)" == "Darwin" ]]; then
   if [[ ! $(which greadlink) ]]; then
-    echo "greadlink not found. Trying \`brew install coreutils\`";
-    if [[ ! $(which brew) ]]; then
-      echo "brew not found. Trying to install...";
-      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-    brew install coreutils;
+    echo "greadlink not found. Try \`brew install coreutils\`";
+    exit 1;
   fi;
   READLINK="greadlink"
 else
@@ -73,8 +76,6 @@ if [[ "$($READLINK -f "$(dirname "${BASH_SOURCE[0]}" )")" != "$($READLINK -f ~/d
   echo "Dotfiles should be checked out to ~/dotfiles".
   exit 1;
 fi
-
-DOT="$($READLINK -f ~/dotfiles)";
 
 # 2) Link standard alias files
 symlink $DOT/shell/zshrc ~/.zshrc
@@ -101,10 +102,5 @@ download \
 
 if [[ ! -e ~/depot_tools ]]; then
   ( cd ~ && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git );
-fi
-
-# 6) OS-specific setup.
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  $DOT/install/osx.sh
 fi
 
