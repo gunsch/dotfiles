@@ -1,6 +1,7 @@
 
 brew install ack
 brew install coreutils
+brew install sshfs
 brew install wget
 
 # Cask let you install Mac applications distributed as binaries.
