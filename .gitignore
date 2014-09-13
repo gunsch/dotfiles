@@ -1,3 +1,6 @@
 /*/proprietary
 /backups
 /download
+
+# Vim
+.*.swp

@@ -99,6 +99,10 @@ download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash
 
+if [[ ! -e ~/depot_tools ]]; then
+  ( cd ~ && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git );
+fi
+
 # 6) OS-specific setup.
 if [[ "$(uname -s)" == "Darwin" ]]; then
   $DOT/install/osx.sh
