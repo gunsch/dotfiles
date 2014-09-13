@@ -2,5 +2,8 @@
 /backups
 /download
 
+/sublime/Package*Control.cache/
+/sublime/*.last-run
+
 # Vim
 .*.swp
