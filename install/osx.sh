@@ -19,8 +19,8 @@ brew install caskroom/cask/brew-cask
 
 brew cask install alfred
 brew cask install caffeine
-# Formerly PCKeyboardHack
-brew cask install seil
+brew cask install hyperdock
+brew cask install seil # Formerly PCKeyboardHack
 brew cask install vlc
 
 # Ask brew if everything is okay
