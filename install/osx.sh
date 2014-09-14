@@ -26,6 +26,10 @@ brew cask install vlc
 # Ask brew if everything is okay
 brew doctor
 
+###############################################################################
+# System-wide configuration
+###############################################################################
+
 # Enable trackpad tap to click for this user and for the login screen.
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -33,6 +37,9 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Display the battery charge in a percentage.
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
+# Disables automatic brightness changes
+sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool false
 
 # Disable mouse (not trackpad) acceleration.
 defaults write .GlobalPreferences com.apple.mouse.scaling -int -1
