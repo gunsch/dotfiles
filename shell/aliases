@@ -103,5 +103,12 @@ function ack_replace() {
   git diff;
 }
 
+put () {
+  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' $@ root@qxlp.net:/var/transfer/
+}
+get () {
+  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' root@qxlp.net:/var/transfer/$@ .
+}
+
 # TODO:
 # JS shell scripts. (Where/how to best store JARs? Download to download/jar/).

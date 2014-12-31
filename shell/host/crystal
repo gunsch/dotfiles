@@ -1,3 +1,23 @@
 # Rules for crystal.
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+
+alias alessandra="ssh jesse@192.168.0.101"
+alias desk=alessandra
+
+sendhome () {
+  if [ $# -lt 2 ]
+  then
+    location="/media/Alessandra/Movies"
+  else
+    location="$2"
+  fi
+  file="$1"
+  scp "$file" 192.168.0.101:~/Public/torrent/ && \
+  ssh 192.168.0.101 "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+  echo "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+  tid=`alessandra transmission-remote -l | tail -2 | head -1 | awk '{print $1}'` && \
+  echo "Moving torrent $tid..." && \
+  ssh 192.168.0.101 "transmission-remote --torrent $tid --move $location" && \
+  echo $tid
+}

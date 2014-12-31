@@ -2,3 +2,11 @@
 
 alias ls-color="/bin/ls -G"
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+
+# Virtual env!
+if [[ -e /usr/local/share/python/virtualenvwrapper.sh ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  # Lazy version is much faster
+  source /usr/local/share/python/virtualenvwrapper_lazy.sh
+fi
+
