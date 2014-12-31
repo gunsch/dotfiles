@@ -5,6 +5,10 @@ map <C-L> <C-W>l
 map <C-K> <C-W>k
 set wmh=0
 
+" emacs start/end for vim
+:map <C-a> <Home>
+:map <C-e> <End>
+
 " Colors/colorscheme
 " colorscheme inkpot
 let &t_Co=256

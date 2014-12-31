@@ -53,6 +53,13 @@ function download() {
 ##############################################
 # Installer start.
 
+DOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# 0) OS-specific setup. Make sure we have brew and expected utilities.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  $DOT/install/osx.sh
+fi
+
 # Find "readlink".
 if [[ "$(uname -s)" == "Darwin" ]]; then
   if [[ ! $(which greadlink) ]]; then
@@ -70,11 +77,10 @@ if [[ "$($READLINK -f "$(dirname "${BASH_SOURCE[0]}" )")" != "$($READLINK -f ~/d
   exit 1;
 fi
 
-DOT="$($READLINK -f ~/dotfiles)";
-
 # 2) Link standard alias files
 symlink $DOT/shell/zshrc ~/.zshrc
 symlink $DOT/shell/bashrc ~/.bashrc
+symlink $DOT/shell/bashrc ~/.bash_profile
 symlink $DOT/shell/vimrc ~/.vimrc
 symlink $DOT/bin ~/bin
 
@@ -93,3 +99,8 @@ fi
 download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash
+
+if [[ ! -e ~/depot_tools ]]; then
+  ( cd ~ && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git );
+fi
+
