@@ -9,8 +9,8 @@
   default = simple
 [filter "media"]
   required = true
-  clean = git media clean %f
-  smudge = git media smudge %f
+	clean = git media clean %f
+	smudge = git media smudge %f
 [include]
     path = dotfiles/host/current/gitconfig
 
