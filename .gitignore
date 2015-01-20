@@ -3,6 +3,7 @@
 /download
 
 /sublime/Package*Control.cache/
+/sublime/*-ca-bundle
 /sublime/*.last-run
 
 # Vim
