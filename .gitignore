@@ -2,6 +2,9 @@
 /backups
 /download
 
+# Symlink for current system
+/host/current
+
 /sublime/Package*Control.cache/
 /sublime/*-ca-bundle
 /sublime/*.last-run

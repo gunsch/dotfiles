@@ -1,0 +1,16 @@
+[user]
+  name = Jesse Gunsch
+  email = gunsch@email.arizona.edu
+[core]
+  deltaBaseCacheLimit = 1G
+  autocrlf = false
+  filemode = false
+[push]
+  default = simple
+[filter "media"]
+  required = true
+  clean = git media clean %f
+  smudge = git media smudge %f
+[include]
+    path = dotfiles/host/current/gitconfig
+

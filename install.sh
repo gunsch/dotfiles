@@ -82,7 +82,12 @@ symlink $DOT/shell/zshrc ~/.zshrc
 symlink $DOT/shell/bashrc ~/.bashrc
 symlink $DOT/shell/bashrc ~/.bash_profile
 symlink $DOT/shell/vimrc ~/.vimrc
+symlink $DOT/shell/gitconfig ~/.gitconfig
 symlink $DOT/bin ~/bin
+
+# Make a simple symlink at "host/current" to "host/$(hostname)" for config
+# files that can't do shell expansion.
+ln -s $DOT/host/$(hostname -s) $DOT/host/current
 
 # 3) Sublime Text alias: OS-specific
 if [[ "$(uname -s)" == "Darwin" ]]; then
