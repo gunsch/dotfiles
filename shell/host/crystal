@@ -4,6 +4,7 @@ export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 alias alessandra="ssh jesse@192.168.0.101"
 alias desk=alessandra
+alias qxlp="ssh -p 37912 gunsch@qxlp.net"
 
 sendhome () {
   if [ $# -lt 2 ]
