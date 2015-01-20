@@ -9,7 +9,7 @@
 		".gemtags"
 	],
 	"fold_buttons": false,
-	"font_size": 9,
+	"font_size": 10.0,
 	"ignored_packages":
 	[
 		"Vintage"
