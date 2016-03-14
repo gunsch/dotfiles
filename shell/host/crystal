@@ -2,7 +2,8 @@
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
-alias alessandra="ssh jesse@192.168.0.101"
+DESK_IP=192.168.1.10
+alias alessandra="ssh jesse@$DESK_IP"
 alias desk=alessandra
 alias qxlp="ssh -p 37912 gunsch@qxlp.net"
 
@@ -14,12 +15,12 @@ sendhome () {
     location="$2"
   fi
   file="$1"
-  scp "$file" 192.168.0.101:~/Public/torrent/ && \
-  ssh 192.168.0.101 "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+  scp "$file" $DESK_IP:~/Public/torrent/ && \
+  ssh $DESK_IP "transmission-remote -a ~/Public/torrent/\"$file\"" && \
   echo "transmission-remote -a ~/Public/torrent/\"$file\"" && \
   tid=`alessandra transmission-remote -l | tail -2 | head -1 | awk '{print $1}'` && \
   echo "Moving torrent $tid..." && \
-  ssh 192.168.0.101 "transmission-remote --torrent $tid --move $location" && \
+  ssh $DESK_IP "transmission-remote --torrent $tid --move $location" && \
   echo "Starting torrent $tid..." && \
-  ssh 192.168.0.101 "transmission-remote --torrent $tid --start"
+  ssh $DESK_IP "transmission-remote --torrent $tid --start"
 }

@@ -105,10 +105,12 @@ function ack_replace() {
 }
 
 put () {
-  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' $@ root@qxlp.net:/var/transfer/
+  if [[ $# -lt 1 ]]; then echo "needs arg"; return 1; fi;
+  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' $@ gunsch@qxlp.net:/var/transfer/
 }
 get () {
-  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' root@qxlp.net:/var/transfer/$@ .
+  if [[ $# -lt 1 ]]; then echo "needs arg"; return 1; fi;
+  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' gunsch@qxlp.net:/var/transfer/$@ .
 }
 
 # TODO:

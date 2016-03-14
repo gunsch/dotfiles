@@ -11,5 +11,13 @@ if [[ -e /usr/local/share/python/virtualenvwrapper.sh ]]; then
   export WORKON_HOME=$HOME/.virtualenvs
   # Lazy version is much faster
   source /usr/local/share/python/virtualenvwrapper_lazy.sh
+elif [[ -e /usr/local/bin/virtualenvwrapper.sh ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  # Lazy version is much faster
+  source /usr/local/bin/virtualenvwrapper_lazy.sh
+fi
+
+if [[ "$ZSH_NAME" == "zsh" && -e ~/.iterm2_shell_integration.zsh ]]; then
+  source /Users/jesse/.iterm2_shell_integration.zsh
 fi
 
