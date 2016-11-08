@@ -1,12 +1,8 @@
 {
 	"auto_upgrade_last_run": null,
+	"bootstrapped": true,
 	"in_process_packages":
 	[
-	],
-	"installed_dependencies":
-	[
-		"0_package_control_loader",
-		"bz2"
 	],
 	"installed_packages":
 	[
@@ -19,6 +15,7 @@
 		"Protocol Buffer Syntax",
 		"rsub",
 		"Theme - Soda",
-		"Tomorrow Color Schemes"
+		"Tomorrow Color Schemes",
+		"TypeScript"
 	]
 }

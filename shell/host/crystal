@@ -1,6 +1,7 @@
 # Rules for crystal.
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+export PATH="/usr/local/sbin:$PATH"
 
 DESK_IP=192.168.1.10
 alias alessandra="ssh jesse@$DESK_IP"

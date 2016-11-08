@@ -112,6 +112,10 @@ get () {
   if [[ $# -lt 1 ]]; then echo "needs arg"; return 1; fi;
   rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' gunsch@qxlp.net:/var/transfer/$@ .
 }
+upload() {
+  if [[ $# -lt 1 ]]; then echo "needs arg"; return 1; fi;
+  rsync -avz --partial --progress --recursive --rsh='ssh -p 37912' $@ gunsch@qxlp.net:/srv/qxlp.net/u/public_html/
+}
 
 # TODO:
 # JS shell scripts. (Where/how to best store JARs? Download to download/jar/).
