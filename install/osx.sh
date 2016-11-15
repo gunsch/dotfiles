@@ -19,8 +19,8 @@ brew install caskroom/cask/brew-cask
 
 brew cask install alfred
 brew cask install caffeine
+brew cask install flux
 brew cask install hyperdock
-brew cask install seil # Formerly PCKeyboardHack
 brew cask install vlc
 
 # Ask brew if everything is okay
@@ -128,4 +128,9 @@ defaults write org.m0k.transmission WarningDonate -bool false
 # Hide the legal disclaimer
 defaults write org.m0k.transmission WarningLegal -bool false
 
+###############################################################################
+# Chrome.app                                                                  #
+###############################################################################
 
+# Disable Cmd+Q from closing Chrome
+defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Quit Google Chrome" -string '@$-^q'

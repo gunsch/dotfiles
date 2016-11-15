@@ -11,3 +11,6 @@
 
 # Vim
 .*.swp
+
+# Junk files
+.DS_Store

@@ -1,0 +1,26 @@
+# Rules for crystal.
+
+export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+
+DESK_IP=192.168.1.10
+alias alessandra="ssh jesse@$DESK_IP"
+alias desk=alessandra
+alias qxlp="ssh -p 37912 gunsch@qxlp.net"
+
+sendhome () {
+  if [ $# -lt 2 ]
+  then
+    location="/media/Alessandra/Movies"
+  else
+    location="$2"
+  fi
+  file="$1"
+  scp "$file" $DESK_IP:~/Public/torrent/ && \
+  ssh $DESK_IP "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+  echo "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+  tid=`alessandra transmission-remote -l | tail -2 | head -1 | awk '{print $1}'` && \
+  echo "Moving torrent $tid..." && \
+  ssh $DESK_IP "transmission-remote --torrent $tid --move $location" && \
+  echo "Starting torrent $tid..." && \
+  ssh $DESK_IP "transmission-remote --torrent $tid --start"
+}
