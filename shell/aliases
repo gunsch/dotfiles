@@ -30,6 +30,9 @@ export EDITOR='vi'
 ###########################################
 ## Other files to load
 
+# Common source sets
+. "${SHELLDIR}/git"             # Git aliases
+
 # Source hostname-specific rules.
 if [ -f "${SHELLDIR}/host/${HOSTNAME}" ]; then
   echo "Loading host config for ${HOSTNAME}";
@@ -49,10 +52,6 @@ if [ -d "${SHELLDIR}/proprietary" ]; then
     . "${proprietary_file}";
   done
 fi
-
-# Source other sets of things.
-. "${SHELLDIR}/git"             # Git aliases
-
 
 ###########################################
 ## Assorted aliases.
@@ -89,19 +88,25 @@ alias ackgyp='ack --type=gyp'
 alias ackjs='ack --type=js'
 alias ackjava='ack --type=java'
 alias ackcc='ack --type=cpp'
+alias ackmk='ack --type=make'
+alias ackpy='ack --type=python'
 
 function ack_replace() {
   if ! git diff-files --quiet --ignore-submodules; then
     echo "No unstaged changes before using ack_replace.";
     return -1;
   fi
+  ack_replace_unsafe $@
+  # Show git diff, because that's what you'll do anyways :)
+  git diff;
+}
+
+function ack_replace_unsafe() {
   if [ $# -ne 2 ]; then
     echo "Usage: ack_replace <find> <replace>";
     return -1;
   fi
-  ack-grep $1 -l | xargs perl -i -pe "s#$1#$2#g";
-  # Show git diff, because that's what you'll do anyways :)
-  git diff;
+  ack-grep "$1" -l | xargs perl -i -pe "s#$1#$2#g";
 }
 
 put () {

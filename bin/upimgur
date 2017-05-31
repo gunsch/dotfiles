@@ -1,0 +1,26 @@
+#!/bin/bash
+
+KEY='05e694cd65ef9bb66539531e4bf36e6b'
+
+# http://api.imgur.com/2/upload
+
+if [ "$1" = "" ]; then
+    echo "Usage: upimgur file.jpg"
+    exit
+fi
+
+JSON=`curl -F "key=$KEY" \
+     -F "type=file" \
+     -F "image=@$1" \
+     -s \
+     http://api.imgur.com/2/upload.json`
+
+echo $JSON
+orig_link=`./extract_json upload links original <<< "$JSON"`
+imgur_link=`./extract_json upload links imgur_page <<< "$JSON"`
+del_link=`./extract_json upload links delete_page <<< "$JSON"`
+
+echo "Uploaded $1"
+echo "Imgur: $imgur_link"
+echo "Image: $orig_link"
+echo "Delete: $del_link"
