@@ -2,7 +2,7 @@
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
-DESK_IP=192.168.1.10
+DESK_IP=192.168.0.101
 alias alessandra="ssh jesse@$DESK_IP"
 alias desk=alessandra
 alias qxlp="ssh -p 37912 gunsch@qxlp.net"

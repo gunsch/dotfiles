@@ -1,0 +1,13 @@
+Host qxlp
+    User gunsch
+    Hostname qxlp.net
+    Port 37912
+
+Host home
+    User jesse
+    Hostname home.ns.qxlp.net
+    Port 37912
+
+Host 192.168.0.101
+    IdentitiesOnly yes
+
