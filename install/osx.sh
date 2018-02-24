@@ -13,6 +13,7 @@ brew install ack
 brew install coreutils
 brew install sshfs
 brew install wget
+brew install android-platform-tools
 
 # Cask let you install Mac applications distributed as binaries.
 brew install caskroom/cask/brew-cask
@@ -20,15 +21,23 @@ brew install caskroom/cask/brew-cask
 brew cask install alfred
 brew cask install caffeine
 brew cask install flux
-brew cask install hyperdock
+brew cask install github-deskto cask install hyperdock
 brew cask install vlc
 
 # Ask brew if everything is okay
 brew doctor
 
+# Python
+sudo easy_install pip
+
+
 ###############################################################################
 # System-wide configuration
 ###############################################################################
+
+# Rewrites Caps Lock to Escape. NOTE: this seems to be keyboard-dependent and might not
+# work for all Macs.
+defaults write -g com.apple.keyboard.modifiermapping.1452-630-0 -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>30064771113</integer><key>HIDKeyboardModifierMappingSrc</key><integer>30064771129</integer></dict>'
 
 # Enable trackpad tap to click for this user and for the login screen.
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -134,3 +143,11 @@ defaults write org.m0k.transmission WarningLegal -bool false
 
 # Disable Cmd+Q from closing Chrome
 defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Quit Google Chrome" -string '@$-^q'
+
+#########
+# Safari
+#########
+
+# Enable developer tools (hidden by default)
+defaults write com.apple.Safari IncludeDebugMenu 1
+

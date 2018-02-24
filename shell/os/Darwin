@@ -1,10 +1,7 @@
 # OS-specific rules.
 
 alias ls-color="/bin/ls -G"
-alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-
-# JAVA_HOME can be determined programmatically
-export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
 # Virtual env!
 if [[ -e /usr/local/share/python/virtualenvwrapper.sh ]]; then
