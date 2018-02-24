@@ -1,0 +1,17 @@
+# Rules for wanderlust
+
+# Sublime.
+alias sublime=/etc/sublime-text-2/sublime_text
+alias subl=sublime
+
+# JS shell. Find a way to generalize.
+function js() {
+  java -cp "/usr/local/google/home/gunsch/jar/*" org.mozilla.javascript.tools.shell.Main \
+      -f /usr/local/google/home/gunsch/src/shell.js \
+      -f -
+}
+function js_run() {
+  java -cp "/usr/local/google/home/gunsch/jar/*" org.mozilla.javascript.tools.shell.Main \
+      -f /usr/local/google/home/gunsch/src/shell.js \
+      $@
+}

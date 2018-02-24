@@ -7,17 +7,18 @@
 #alias lines="nocolor | egrep '(^\+[^+])|(^-[^-])' | wc -l"
 
 # Git aliases
+alias gut=git
 alias got=git
 alias rebase="git rebase"
-alias pick="git cherry-pick"
+alias pick="git cherry-pick -x"
 alias amend="git commit --amend --reuse-message=HEAD"
-alias files="git ls-files -m"
+# alias files="git ls-files -m"
 
 alias b="git branch"
 alias c="git checkout"
-alias d="git diff"
+#alias d="git diff"
 #alias m="git commit -a -m"
-alias s="git status"
+#alias s="git status"
 alias x="git5 export"
 
 if [ "$CURRENT_SHELL" = "bash" ]; then
@@ -83,13 +84,30 @@ fi
 function replay_onto() {
   echo "Usage: replay_onto <original_branch> <[new_branch_name]>"
   if [ $# -lt 1 ]; then return; fi;
-  git format-patch HEAD^ --stdout > /tmp/rebase;
+ # git format-patch HEAD^ --stdout > /tmp/rebase;
+  second_branch=$(git rev-parse --abbrev-ref HEAD)
   git checkout $1;
   git checkout --track -B tmp-rebase;
   git branch --set-upstream-to=$1;
-  git am /tmp/rebase;
-  if [ $# -gt 1 ]; then
-    git branch -m $2;
-  fi;
+  # Immediately replace the branch if successful
+  git cherry-pick ${second_branch} && \
+      git branch -D ${second_branch} && \
+      git branch -m ${second_branch} && \
+      echo "Success";
+  echo "git cherry-pick --continue";
+  echo "git branch -D ${second_branch}"
+  echo "git branch -m ${second_branch}"
+#  git am /tmp/rebase;
+#  if [ $# -gt 1 ]; then
+#    git branch -m $2;
+#  fi;
 }
 
+function replay() {
+  upstream_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{upstream})
+  if [[ -z "${upstream_branch}" ]]; then
+    echo "no valid upstream git branch found";
+    return;
+  fi
+  replay_onto ${upstream_branch}
+}

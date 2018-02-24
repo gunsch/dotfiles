@@ -65,7 +65,7 @@ fi
 # This needs to stay after fasd setup for valid return codes.
 # Color-prompt.
 export PROMPT_COMMAND=__prompt_command
-export __LOCAL_PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+export __LOCAL_PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]\$\[\033[01;34m\]\w\[\033[00m\]\$ '
 function __prompt_command() {
     status="$?";
     PS1="";
@@ -73,9 +73,80 @@ function __prompt_command() {
         PS1+="[$status]";
     fi
     PS1+=$__LOCAL_PS1;
+
+    local TITLE_BAR="";
+    if [[ -n "$TERM_TITLE" ]]; then
+      TITLE_BAR="${TERM_TITLE}"
+    else
+      ####################################################
+      # Set an interesting title with some useful info.
+      # Look through GYP_DEFINES for info.
+      local GYP_OS="linux"
+      local GYP_ARCH="x86"
+      local GYP_CHROMECAST_BRANDING=""
+      local GYP_TITLE=""
+      local GYP_PRODUCT=""
+      local TMP_IFS=$IFS
+      unset IFS
+      for x in $GYP_DEFINES; do
+        local key=${x%=*};
+        local value=${x##*=};
+        if [[ $key = "OS" ]]; then
+          GYP_OS=$value
+        fi
+        if [[ $key = "target_arch" ]]; then
+          if [[ $value = "ia32" ]]; then
+            GYP_ARCH="x86"
+          else
+            GYP_ARCH=$value
+          fi
+        fi
+        if [[ $key = "chromecast_branding" ]]; then
+          if [[ $value = "public" ]]; then
+            GYP_CHROMECAST_BRANDING="public"
+          fi
+        fi
+        if [[ $key = "chromecast_target_product" ]]; then
+          GYP_PRODUCT="$value";
+        fi
+      done
+      IFS=$TMP_IFS
+
+      if [[ -n "$GYP_CHROMECAST_BRANDING" && -n "$GYP_OS" ]]; then
+        TITLE_BAR="${GYP_OS} ${GYP_CHROMECAST_BRANDING} ${GYP_ARCH} ${GYP_PRODUCT}";
+      fi
+      ####################################################
+    fi
+
+    if [[ -n "${TITLE_BAR}" ]]; then
+      PS1+="\[\e]2;${TITLE_BAR}\a\]";
+      #PS1+="\[\033]0;${TITLE_BAR}\007\]";
+    fi
+
     return $status;
 }
+
+function set_title() {
+  if [[ $# -lt 1 ]]; then
+    unset TERM_TITLE;
+  else
+    export TERM_TITLE="$@";
+  fi
+}
+
+if [[ -e /usr/local/bin/virtualenvwrapper.sh ]]; then
+  echo "Loading virtualenvwrapper...";
+  export WORKON_HOME=$HOME/.virtualenvs
+  export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+  source /usr/local/bin/virtualenvwrapper_lazy.sh
+fi
 
 # Bash-specific aliases.
 alias resource="vi ~/.bashrc && source ~/.bashrc"
 alias sz="source ~/.bashrc"
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/usr/local/google/home/gunsch/google-cloud-sdk/path.bash.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/usr/local/google/home/gunsch/google-cloud-sdk/completion.bash.inc'

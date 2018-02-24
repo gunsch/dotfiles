@@ -25,7 +25,7 @@ function symlink() {
       mv "$2" "${backup_location}";
       # Fall through to symlinking.
     else
-      return;
+      return 0;
     fi;
   fi;
 
@@ -86,9 +86,19 @@ symlink $DOT/shell/gitconfig ~/.gitconfig
 symlink $DOT/shell/sshconfig ~/.ssh/config
 symlink $DOT/bin ~/bin
 
+if [ -d "${DOT}/shell/proprietary" ]; then
+  echo "ok"
+  for alias_file in $DOT/shell/proprietary/.[^.]*; do
+    echo "Symlinking ${alias_file}";
+    symlink $alias_file ~/$(basename $alias_file);
+  done
+fi
+
 # Make a simple symlink at "host/current" to "host/$(hostname)" for config
 # files that can't do shell expansion.
-ln -s $DOT/host/$(hostname -s) $DOT/host/current
+if [[ ! -L $DOT/host/current ]]; then
+  ln -s $DOT/host/$(hostname -s) $DOT/host/current;
+fi
 
 # 3) Sublime Text alias: OS-specific
 if [[ "$(uname -s)" == "Darwin" ]]; then

@@ -36,7 +36,9 @@ echo "${NEW_COMMIT}" > ${COMMIT_FILENAME}
 
 # What happened last time?
 if [[ "${LAST_RESULT}" != "${NEW_RESULT}" ]]; then
-  cat <<END | email -t "gunsch@google.com" -s "Chromium build status: ${NEW_RESULT}"
+  cat <<END | email -t "gunsch@google.com" -s "Chromium build: ${NEW_RESULT} (${NEW_COMMIT})"
+cast_shell build status changed:
+
 Was ${LAST_RESULT}, now ${NEW_RESULT}
 Current ${NEW_RESULT} happened at:
 ================================
