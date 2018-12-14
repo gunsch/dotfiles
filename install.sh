@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Installer!
 
-
+# TODOs:
+#   * Can we get vscode settings in here?
+#   * delete ST2 settings
+#   * iterm2 settings, particularly from gunsch-macbookpro2?
 
 set -e;
 
