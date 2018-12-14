@@ -114,7 +114,9 @@ function replay() {
 
 function git_authorize() {
   eval "$(ssh-agent -s)"
-  ssh-add -K ~/.ssh/github_rsa
+  # Note: would prefer to have -K, but that doesn't work work with
+  # gnubby-ssh-add on Google machines
+  ssh-add ~/.ssh/github_rsa
 
   echo "To confirm, run:"
   echo "    ssh -T git@github.com"
