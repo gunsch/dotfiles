@@ -89,6 +89,8 @@ print_header "OS-specific sub-scripts"
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
   $DOT/install/osx.sh
+elif [[ "$(uname -s)" == "Linux" ]]; then
+  $DOT/install/linux.sh
 fi
 
 ###############################################################################
@@ -135,15 +137,24 @@ print_header "Set up Sublime Text configs..."
 ###############################################################################
 print_header "Downloading command-line/developer tools..."
 
+# bash completion utils for git
 download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash
 
-# 6) gcloud
+# gcloud
 if [[ ! -e ~/google-cloud-sdk ]]; then
   curl https://sdk.cloud.google.com | bash;
 fi
 
+# FZF
+git clone --depth 1 https://github.com/junegunn/fzf.git $DOT/download/.fzf
+$DOT/download/.fzf/install
+
+# diff-so-fancy
+npm install -g diff-so-fancy
+
+# Chromium's depot_tools
 if [[ ! -e ~/depot_tools ]]; then
   ( cd ~ && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git );
 fi

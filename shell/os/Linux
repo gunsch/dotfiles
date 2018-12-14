@@ -16,7 +16,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # ack comes as ack-grep
-alias ack="ack-grep -i"
+alias ack="ack -i --ignore-dir=dist"
 
 # Finding files with Linux 'find'
 alias fn='/usr/bin/find -name'

@@ -84,7 +84,6 @@ fi
 function replay_onto() {
   echo "Usage: replay_onto <original_branch> <[new_branch_name]>"
   if [ $# -lt 1 ]; then return; fi;
- # git format-patch HEAD^ --stdout > /tmp/rebase;
   second_branch=$(git rev-parse --abbrev-ref HEAD)
   git checkout $1;
   git checkout --track -B tmp-rebase;
@@ -97,10 +96,6 @@ function replay_onto() {
   echo "git cherry-pick --continue";
   echo "git branch -D ${second_branch}"
   echo "git branch -m ${second_branch}"
-#  git am /tmp/rebase;
-#  if [ $# -gt 1 ]; then
-#    git branch -m $2;
-#  fi;
 }
 
 function replay() {

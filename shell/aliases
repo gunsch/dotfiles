@@ -34,6 +34,7 @@ export EDITOR='vi'
 
 # Common source sets
 . "${SHELLDIR}/git"             # Git aliases
+. "${SHELLDIR}/npm"             # NPM aliases/autocomplete
 
 # Source hostname-specific rules.
 if [ -f "${SHELLDIR}/host/${HOSTNAME}" ]; then
@@ -85,7 +86,6 @@ alias bs="byobu new -s"
 alias br="byobu-select-session"
 alias bl="byobu list-sessions"
 
-
 # Searching/replacing.
 alias ackgyp='ack --type=gyp'
 alias ackjs='ack --type=js'
@@ -93,6 +93,14 @@ alias ackjava='ack --type=java'
 alias ackcc='ack --type=cpp'
 alias ackmk='ack --type=make'
 alias ackpy='ack --type=python'
+
+# Alternative tools, many from https://remysharp.com/2018/08/23/cli-improved
+alias cat='bat'
+alias ping='prettyping --nolegend'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+# add support for ctrl+o to open selected file in VSCode 
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
+alias du="ncdu -rr -x --exclude .git --exclude node_modules"
 
 function ack_replace() {
   if ! git diff-files --quiet --ignore-submodules; then
@@ -109,7 +117,7 @@ function ack_replace_unsafe() {
     echo "Usage: ack_replace <find> <replace>";
     return -1;
   fi
-  ack-grep "$1" -l | xargs perl -i -pe "s#$1#$2#g";
+  ack "$1" -l | xargs perl -i -pe "s#$1#$2#g";
 }
 
 put () {
