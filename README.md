@@ -14,6 +14,6 @@ gunsch's dotfiles
 ### install
 
     cd ~
-    git clone https://github.com/gunsch/dotfiles.git
+    git clone git@github.com:gunsch/dotfiles.git
     ./dotfiles/install.sh
 
