@@ -12,13 +12,13 @@ alias got=git
 alias rebase="git rebase"
 alias pick="git cherry-pick -x"
 alias amend="git commit --amend --reuse-message=HEAD"
-# alias files="git ls-files -m"
+# alias files="git ls-files -m:
 
 alias b="git branch"
 alias c="git checkout"
-#alias d="git diff"
+alias d="git diff"
 #alias m="git commit -a -m"
-#alias s="git status"
+alias s="git status"
 alias x="git5 export"
 
 if [ "$CURRENT_SHELL" = "bash" ]; then
@@ -111,3 +111,12 @@ function replay() {
   fi
   replay_onto ${upstream_branch}
 }
+
+function git_authorize() {
+  eval "$(ssh-agent -s)"
+  ssh-add -K ~/.ssh/github_rsa
+
+  echo "To confirm, run:"
+  echo "    ssh -T git@github.com"
+}
+
