@@ -23,7 +23,6 @@ sudo chown -R $(whoami) $(brew --prefix)/*
 
 brew install \
     ack \
-    android-platform-tools \
     bat \
     coreutils \
     fd \
@@ -39,12 +38,14 @@ brew cask install \
     alfred \
     caffeine \
     flux \
-    github-desktop \
+    github \
     hyperdock \
     vlc
 
 # Exception here for arabelle --- previous web install
 brew cask install iterm2 || true
+# Exception here for gunsch-macbookpro2 --- previous manual install
+brew cask install android-platform-tools || true
 
 # Special case (sshfs): do osxfuse, then sshfs
 brew cask install osxfuse
