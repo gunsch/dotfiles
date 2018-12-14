@@ -17,6 +17,7 @@ HOMEDIR="$(cd ~ && pwd -P)"
 
 # Constant paths.
 export PATH="/usr/local/bin:${PATH}"
+export PATH="/usr/local/sbin:${PATH}"
 export PATH="${PATH}:${HOMEDIR}/bin"
 export PATH="${PATH}:${HOMEDIR}/go/bin"
 export PATH="${PATH}:${HOMEDIR}/depot_tools"

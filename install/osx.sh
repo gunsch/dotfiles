@@ -21,21 +21,26 @@ fi
 # Permissions seem to get reset regularly?
 sudo chown -R $(whoami) $(brew --prefix)/*
 
-brew install ack || true
-brew install coreutils || true
-brew install wget || true
-brew install android-platform-tools || true
+brew install \
+    ack \
+    android-platform-tools \
+    coreutils \
+    wget \
+    || true  # Note: Brew has non-zero exit status if apps are already installed :(
 
 # Cask let you install Mac applications distributed as binaries.
 brew tap caskroom/cask
 
-brew cask install alfred
-brew cask install caffeine
-brew cask install flux
-brew cask install github-desktop
-brew cask install hyperdock
-brew cask install iterm2
-brew cask install vlc
+brew cask install \
+    alfred \
+    caffeine \
+    flux \
+    github-desktop \
+    hyperdock \
+    vlc
+
+# Exception here for arabelle --- previous web install
+brew cask install iterm2 || true
 
 # Special case (sshfs): do osxfuse, then sshfs
 brew cask install osxfuse
