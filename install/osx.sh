@@ -24,7 +24,11 @@ sudo chown -R $(whoami) $(brew --prefix)/*
 brew install \
     ack \
     android-platform-tools \
+    bat \
     coreutils \
+    fd \
+    jq \
+    ncdu \
     wget \
     || true  # Note: Brew has non-zero exit status if apps are already installed :(
 
