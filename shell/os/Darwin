@@ -15,7 +15,7 @@ elif [[ -e /usr/local/bin/virtualenvwrapper.sh ]]; then
 fi
 
 if [[ "$ZSH_NAME" == "zsh" && -e ~/.iterm2_shell_integration.zsh ]]; then
-  source /Users/jesse/.iterm2_shell_integration.zsh
+  source /Users/gunsch/.iterm2_shell_integration.zsh
 fi
 
 # Taken from https://florin.myip.org/blog/easy-multifactor-authentication-ssh-using-yubikey-neo-tokens

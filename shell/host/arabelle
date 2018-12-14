@@ -1,6 +1,8 @@
 # Rules for crystal.
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 
 DESK_IP=192.168.0.101
 alias alessandra="ssh jesse@$DESK_IP"
@@ -15,12 +17,14 @@ sendhome () {
     location="$2"
   fi
   file="$1"
-  scp "$file" $DESK_IP:~/Public/torrent/ && \
-  ssh $DESK_IP "transmission-remote -a ~/Public/torrent/\"$file\"" && \
-  echo "transmission-remote -a ~/Public/torrent/\"$file\"" && \
-  tid=`alessandra transmission-remote -l | tail -2 | head -1 | awk '{print $1}'` && \
-  echo "Moving torrent $tid..." && \
-  ssh $DESK_IP "transmission-remote --torrent $tid --move $location" && \
-  echo "Starting torrent $tid..." && \
-  ssh $DESK_IP "transmission-remote --torrent $tid --start"
+  scp "$file" jesse@$DESK_IP:~/Public/torrent/ && \
+    ssh jesse@$DESK_IP "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+    echo "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+    tid=`alessandra transmission-remote -l | tail -2 | head -1 | awk '{print $1}'` && \
+    echo "Moving torrent $tid..." && \
+    ssh jesse@$DESK_IP "transmission-remote --torrent $tid --move $location" && \
+    echo "Starting torrent $tid..." && \
+    ssh jesse@$DESK_IP "transmission-remote --torrent $tid --start" && \
+    echo "Moving file to /tmp..." && \
+    mv "$file" /tmp
 }
