@@ -117,6 +117,11 @@ download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash
 
+# 6) gcloud
+if [[ ! -e ~/google-cloud-sdk ]]; then
+  curl https://sdk.cloud.google.com | bash;
+fi
+
 if [[ ! -e ~/depot_tools ]]; then
   ( cd ~ && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git );
 fi

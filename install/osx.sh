@@ -83,6 +83,9 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
+# Disable dictionary shortcut key.
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dict><key>enabled</key><false/></dict>'
+
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
@@ -114,6 +117,8 @@ chflags nohidden ~/Library
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+killall Dock
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
@@ -137,16 +142,25 @@ defaults write org.m0k.transmission WarningDonate -bool false
 defaults write org.m0k.transmission WarningLegal -bool false
 
 ###############################################################################
+# Sublime Text.app                                                            #
+###############################################################################
+
+# Change "Quit" shortcut key to Cmd+Ctrl+Shift+Q
+defaults write com.sublimetext.3 NSUserKeyEquivalents -dict-add "Quit Sublime Text" -string "@^\$q"
+
+###############################################################################
 # Chrome.app                                                                  #
 ###############################################################################
 
-# Disable Cmd+Q from closing Chrome
-defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Quit Google Chrome" -string '@$-^q'
+# Change "Quit" shortcut key to Cmd+Ctrl+Shift+Q
+defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Quit Google Chrome" -string "@^\$q"
+# Change "Close Window" shortcut key to Cmd+Ctrl+Shift+W
+defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Close Window" -string "@^~\$w"
+defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Close All" -string "@^~\$a"
 
-#########
-# Safari
-#########
+###############################################################################
+# Safari.app                                                                  #
+###############################################################################
 
 # Enable developer tools (hidden by default)
 defaults write com.apple.Safari IncludeDebugMenu 1
-

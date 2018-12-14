@@ -1,0 +1,51 @@
+# Rules for gunsch-macbookair.
+
+export DESK_HOST=wanderlust.sea.corp.google.com
+
+alias powerthirst="ssh powerthirst.mtv.corp.google.com"
+alias wanderlust="ssh wanderlust.sea.corp.google.com"
+alias desk="ssh $DESK_HOST"
+alias mounthome="sshfs $DESK_HOST:/usr/local/google/code /Users/gunsch/code"
+alias mounthome2="sshfs $DESK_HOST:/usr/local/google/code-disk /Users/gunsch/code-disk"
+
+function mountcitc() {
+  if [[ $# -lt 1 ]]; then
+    echo "usage: mountcitc <name of citc client>"
+    return -1;
+  fi
+
+  sshfs $DESK_HOST:/google/src/cloud/gunsch/$1/google3 /Users/gunsch/code
+}
+
+function mountg3() {
+  if [[ $# -lt 1 ]]; then
+    echo "mounting master at /usr/local/google/code/google3"
+    sshfs $DESK_HOST:/usr/local/google/code/google3 /Users/gunsch/code
+    return;
+  fi
+
+  echo "mounting branch $1 at /usr/local/google/branch/$1/google3"
+  sshfs $DESK_HOST:/usr/local/google/branch/$1/google3 /Users/gunsch/code
+}
+function mountgit5() {
+  mountg3 $@;
+}
+
+function qxlp() {
+  killall gpg-agent
+  gpgconf --launch gpg-agent
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+  echo "SSH #1..."
+  ssh -p 37912 gunsch@qxlp.net
+
+  echo "Enc/dec"
+  enc=$(gpg --trust-model always --encrypt --armor -r andrew@gunsch.cc <<< 'hello')
+
+  echo "Run the following..."
+  echo "gpg --decrypt"
+  echo "${enc}"
+  echo "ssh -p 37912 gunsch@qxlp.net"
+  echo "ssh -p 37912 jesse@home.ns.qxlp.net"
+}
+

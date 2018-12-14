@@ -17,14 +17,3 @@ fi
 if [[ "$ZSH_NAME" == "zsh" && -e ~/.iterm2_shell_integration.zsh ]]; then
   source /Users/gunsch/.iterm2_shell_integration.zsh
 fi
-
-# Taken from https://florin.myip.org/blog/easy-multifactor-authentication-ssh-using-yubikey-neo-tokens
-GPG_TTY=$(tty)
-export GPG_TTY
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-    . "${HOME}/.gpg-agent-info"
-    export GPG_AGENT_INFO
-    export SSH_AUTH_SOCK
-fi
-
