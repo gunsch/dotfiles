@@ -148,8 +148,10 @@ if [[ ! -e ~/google-cloud-sdk ]]; then
 fi
 
 # FZF
-git clone --depth 1 https://github.com/junegunn/fzf.git $DOT/download/.fzf
-$DOT/download/.fzf/install
+if [[ ! -e $DOT/download/.fzf ]]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git $DOT/download/.fzf
+  $DOT/download/.fzf/install
+fi
 
 # diff-so-fancy
 npm install -g diff-so-fancy
