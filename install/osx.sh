@@ -6,8 +6,7 @@ if [[ ! $(which brew) ]]; then
 fi
 
 # Permissions seem to get reset regularly?
-sudo chown $USER /usr/local
-sudo chown $USER /usr/local/etc
+sudo chown -R $(whoami) $(brew --prefix)/*
 
 brew install ack
 brew install coreutils

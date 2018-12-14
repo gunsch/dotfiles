@@ -2,6 +2,7 @@
 # Installer!
 
 set -e;
+set -x;
 
 function symlink() {
   if [[ $# -lt 2 ]]; then

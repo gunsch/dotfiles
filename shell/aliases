@@ -60,6 +60,7 @@ fi
 # Files/command-line stuff
 alias histfind='history -n 100 | egrep'
 alias duh='du -h | egrep "^[0-9. ]+G"'
+alias dum='du -h | egrep "^[0-9. ]+M"'
 
 # LS aliases. Assume ls-color is set by OS-specific.
 alias ls="ls-color -h"
