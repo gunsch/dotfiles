@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 # Installer!
 
+
+
 set -e;
-set -x;
+
+function print_header {
+  echo "###############################################################################"
+  echo "# $1"
+  echo "###############################################################################"
+}
 
 function symlink() {
   if [[ $# -lt 2 ]]; then
@@ -51,15 +58,12 @@ function download() {
 }
 
 
-##############################################
-# Installer start.
+###############################################################################
+# Initial configuration / setup
+###############################################################################
 
 DOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# 0) OS-specific setup. Make sure we have brew and expected utilities.
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  $DOT/install/osx.sh
-fi
+echo "dotfiles root: ${DOT}"
 
 # Find "readlink".
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -71,14 +75,27 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 else
   READLINK="readlink"
 fi
+echo "readlink utility: ${READLINK}"
 
-# 1) Test that dotfiles is in the expected location.
 if [[ "$($READLINK -f "$(dirname "${BASH_SOURCE[0]}" )")" != "$($READLINK -f ~/dotfiles)" ]]; then
   echo "Dotfiles should be checked out to ~/dotfiles".
   exit 1;
 fi
 
-# 2) Link standard alias files
+###############################################################################
+# OS-specific sub-scripts
+###############################################################################
+print_header "OS-specific sub-scripts"
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  $DOT/install/osx.sh
+fi
+
+###############################################################################
+# Symlink things to places we want
+###############################################################################
+print_header "Make sure our symlinks are in place..."
+
 symlink $DOT/shell/zshrc ~/.zshrc
 symlink $DOT/shell/bashrc ~/.bashrc
 symlink $DOT/shell/bashrc ~/.bash_profile
@@ -101,18 +118,23 @@ if [[ ! -L $DOT/host/current ]]; then
   ln -s $DOT/host/$(hostname -s) $DOT/host/current;
 fi
 
-# 3) Sublime Text alias: OS-specific
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  symlink $DOT/sublime ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User
-else
-  symlink $DOT/sublime ~/.config/sublime-text-2/Packages/User
-fi
+###############################################################################
+# Sublime Text configs
+###############################################################################
+print_header "Set up Sublime Text configs..."
 
-# 4) Prompt for password and write it to $DOT/password.
-# This is used to authenticate server-side tools.
-# TODO
+# Note: not using ST2 these days
+#if [[ "$(uname -s)" == "Darwin" ]]; then
+#  symlink $DOT/sublime ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User
+#else
+#  symlink $DOT/sublime ~/.config/sublime-text-2/Packages/User
+#fi
 
-# 5) Download other libraries as needed.
+###############################################################################
+# Developer tools
+###############################################################################
+print_header "Downloading command-line/developer tools..."
+
 download \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
     git-completion.bash

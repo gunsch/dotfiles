@@ -1,5 +1,18 @@
 # OSX-specific setup.
 
+set -e
+
+function print_header {
+  echo "###############################################################################"
+  echo "# $1"
+  echo "###############################################################################"
+}
+
+###############################################################################
+# Applications to install
+###############################################################################
+print_header "brew, cask, and friends"
+
 if [[ ! $(which brew) ]]; then
   echo "brew not found. Trying to install...";
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -8,23 +21,33 @@ fi
 # Permissions seem to get reset regularly?
 sudo chown -R $(whoami) $(brew --prefix)/*
 
-brew install ack
-brew install coreutils
-brew install sshfs
-brew install wget
-brew install android-platform-tools
+brew install ack || true
+brew install coreutils || true
+brew install wget || true
+brew install android-platform-tools || true
 
 # Cask let you install Mac applications distributed as binaries.
-brew install caskroom/cask/brew-cask
+brew tap caskroom/cask
 
 brew cask install alfred
 brew cask install caffeine
 brew cask install flux
-brew cask install github-deskto cask install hyperdock
+brew cask install github-desktop
+brew cask install hyperdock
+brew cask install iterm2
 brew cask install vlc
+
+# Special case (sshfs): do osxfuse, then sshfs
+brew cask install osxfuse
+brew install sshfs || true
 
 # Ask brew if everything is okay
 brew doctor
+
+###############################################################################
+# Developer tools
+###############################################################################
+print_header "Developer tools"
 
 # Python
 sudo easy_install pip
@@ -33,6 +56,7 @@ sudo easy_install pip
 ###############################################################################
 # System-wide configuration
 ###############################################################################
+print_header "Setting up OSX configs"
 
 # Rewrites Caps Lock to Escape. NOTE: this seems to be keyboard-dependent and might not
 # work for all Macs.
