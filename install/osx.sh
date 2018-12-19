@@ -86,8 +86,8 @@ sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Aut
 # Disable mouse (not trackpad) acceleration.
 defaults write .GlobalPreferences com.apple.mouse.scaling -int -1
 
-# Set a keyboard repeat rate of 2ms.
-defaults write NSGlobalDomain KeyRepeat -float 0.02
+# Set a keyboard repeat rate of 100ms.
+defaults write NSGlobalDomain KeyRepeat -float 1.0
 
 # Save screenshots location
 if [[ ! -e "${HOME}/Screenshots" ]]; then
