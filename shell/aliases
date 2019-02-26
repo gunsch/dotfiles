@@ -76,7 +76,7 @@ alias lr="ls -lrt"
 cu() { if [ "$1" = "" ]; then cd ..; else for i in `seq 1 $1`; do cd ..; done; fi } 
 
 # Prefer htop if available.
-if which htop 21>/dev/null; then
+if which htop 2&>/dev/null; then
   alias top="htop"
 fi
 

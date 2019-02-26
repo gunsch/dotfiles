@@ -1,5 +1,9 @@
 # Rules for wanderlust
 
+# Undo the git aliases, so we can use the CITC-switcher scripts instead
+unalias s
+unalias d
+
 # Sublime.
 alias sublime=/etc/sublime-text-2/sublime_text
 alias subl=sublime
