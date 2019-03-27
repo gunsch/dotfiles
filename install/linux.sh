@@ -12,8 +12,8 @@ wget https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd_${FD_VERS
     sudo dpkg -i fd_${FD_VERSION}_amd64.deb && \
     rm fd_${FD_VERSION}_amd64.deb
 
-
 sudo apt-get install \
+   ack \
    jq \
    ncdu
 
