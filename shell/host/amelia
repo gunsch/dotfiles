@@ -1,0 +1,7 @@
+#!/bin/bash
+
+alias subl="/home/jesse/apps/sublime_text/sublime_text"
+
+# Adds proprietary directory for some private bin files
+export PATH="${PATH}:${HOME}/dotfiles/bin/proprietary"
+
