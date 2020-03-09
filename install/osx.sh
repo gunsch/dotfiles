@@ -27,13 +27,12 @@ brew install \
     coreutils \
     fd \
     jq \
+    magic-wormhole \
     ncdu \
     wget \
     || true  # Note: Brew has non-zero exit status if apps are already installed :(
 
 # Cask let you install Mac applications distributed as binaries.
-brew tap caskroom/cask
-
 brew cask install \
     alfred \
     caffeine \
