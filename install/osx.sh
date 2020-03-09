@@ -120,6 +120,9 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Disable dictionary shortcut key.
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dict><key>enabled</key><false/></dict>'
 
+# Disables MRU space ordering
+defaults write com.apple.dock mru-spaces -bool false
+
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
