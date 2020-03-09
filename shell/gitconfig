@@ -1,6 +1,6 @@
 [user]
-  name = Andrew Gunsch
-  email = andrew@gunsch.cc
+	name = Andrew Gunsch
+	email = andrew@gunsch.cc
 [core]
   deltaBaseCacheLimit = 1G
   autocrlf = false
