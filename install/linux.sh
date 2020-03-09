@@ -13,7 +13,8 @@ wget https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd_${FD_VERS
     rm fd_${FD_VERSION}_amd64.deb
 
 sudo apt-get install \
-   ack \
+   ack-grep \
    jq \
+   magic-wormhole \
    ncdu
 
