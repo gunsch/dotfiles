@@ -138,3 +138,17 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 test -e "/etc/profile.d/undistract-me.sh" && source /etc/profile.d/undistract-me.sh
 test -e "${HOME}/.fzf.bash" && source "${HOME}/.fzf.bash"
 
+# same for NVM, but...
+# (a) default to 10.15.3
+# (b) use "--no-use" option, otherwise it adds ~1s to every bash startup
+export NVM_DIR="$HOME/.nvm"
+DEFAULT_NODE_VERSION='10.15.3'
+if [ -d "${HOME}/.nvm/versions/node/v${DEFAULT_NODE_VERSION}/bin" ] ; then
+  PATH="${HOME}/.nvm/versions/node/v${DEFAULT_NODE_VERSION}/bin:${PATH}"
+fi
+test -e "/usr/local/opt/nvm/nvm.sh" && source "/usr/local/opt/nvm/nvm.sh" --no-use  # This loads nvm
+test -e "/usr/local/opt/nvm/etc/bash_completion.d/nvm" && source "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Add dotfiles/bin to the PATH
+export PATH="${PATH}:${HOME}/dotfiles/bin"
+
