@@ -10,4 +10,4 @@ if [[ $# -ge 2 ]]; then
   START_DIR=$2;
 fi;
 
-python -c "import os.path; print os.path.relpath('${1}', '${START_DIR}')";
+python3 -c "import os.path; print(os.path.relpath('${1}', '${START_DIR}'))";
