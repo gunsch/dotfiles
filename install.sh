@@ -157,7 +157,9 @@ if [[ ! -e $DOT/download/.fzf ]]; then
 fi
 
 # diff-so-fancy
-npm install -g diff-so-fancy
+# TODO(2020-05-08): not sure if `sudo npm` here is right for all systems,
+# tested on Serendipity
+sudo npm install -g diff-so-fancy
 
 # Chromium's depot_tools
 if [[ ! -e ~/depot_tools ]]; then
