@@ -1,0 +1,3 @@
+# Rules for serendipity (HP Spectre x360)
+
+export PATH="$PATH:/home/gunsch/tools/flutter/bin"
