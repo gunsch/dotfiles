@@ -24,10 +24,3 @@ alias ports="netstat -tulpn"
 # Open for Ubuntu!
 alias open=xdg-open
 
-# Resets for SSH/Yubikey setup
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-# Note: this is a good way to reset the yubikey for the following error:
-#   sign_and_send_pubkey: signing failed: agent refused operation
-gpg-connect-agent updatestartuptty /bye
-
