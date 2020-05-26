@@ -110,13 +110,15 @@ symlink $DOT/shell/gitconfig ~/.gitconfig
 symlink $DOT/shell/sshconfig ~/.ssh/config
 symlink $DOT/bin ~/bin
 
-if [ -d "${DOT}/shell/proprietary" ]; then
-  echo "ok"
-  for alias_file in $DOT/shell/proprietary/.[^.]*; do
-    echo "Symlinking ${alias_file}";
-    symlink $alias_file ~/$(basename $alias_file);
-  done
-fi
+# 2020-05-25: not used on amelia/serendipity/georgemichael.
+# causing problems though on amelia. maybe delete?
+# if [ -d "${DOT}/shell/proprietary" ]; then
+#   echo "ok"
+#   for alias_file in $DOT/shell/proprietary/.[^.]*; do
+#     echo "Symlinking ${alias_file}";
+#     symlink $alias_file ~/$(basename $alias_file);
+#   done
+# fi
 
 # Make a simple symlink at "host/current" to "host/$(hostname)" for config
 # files that can't do shell expansion.
