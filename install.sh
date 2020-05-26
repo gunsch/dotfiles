@@ -28,10 +28,9 @@ function symlink() {
 
     local prefixed_backup_location="$($DOT/bin/relpath $1)"
     local backup_location="$DOT/backups/${prefixed_backup_location#dotfiles/}";
-    local printable_backup_location="~/$($DOT/bin/relpath ${backup_location})"
 
     echo "- $2 already exists. Replace with $1?";
-    if $DOT/bin/prompt "- $2 will be backed up at ${printable_backup_location})"; then
+    if $DOT/bin/prompt "- $2 will be backed up at ${backup_location})"; then
       mkdir -p "$(dirname "${backup_location}")";
       mv "$2" "${backup_location}";
       # Fall through to symlinking.
