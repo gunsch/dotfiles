@@ -20,6 +20,7 @@ sudo apt-get install \
    ack-grep \
    jq \
    magic-wormhole \
+   mosh \
    ncdu \
    npm
 

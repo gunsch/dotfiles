@@ -28,6 +28,7 @@ brew install \
     fd \
     jq \
     magic-wormhole \
+    mosh \
     ncdu \
     wget \
     || true  # Note: Brew has non-zero exit status if apps are already installed :(
