@@ -1,3 +1,10 @@
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/controlmasters/%C
+    # Persist for 5 seconds after killing master session, so we can
+    # immediately re-log-in if needed
+    ControlPersist 5
+
 Host qxlp
     User gunsch
     Hostname qxlp.net

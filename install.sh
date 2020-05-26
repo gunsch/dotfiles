@@ -123,6 +123,9 @@ if [[ ! -L $DOT/host/current ]]; then
   ln -s $DOT/host/$(hostname -s) $DOT/host/current;
 fi
 
+# sshconfig dependency: needs .ssh/controlmasters to exist
+mkdir -p ~/.ssh/controlmasters/ && chmod 700 ~/.ssh/controlmasters/
+
 ###############################################################################
 # Sublime Text configs
 ###############################################################################
