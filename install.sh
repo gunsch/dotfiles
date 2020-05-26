@@ -105,6 +105,7 @@ symlink $DOT/shell/zshrc ~/.zshrc
 symlink $DOT/shell/bashrc ~/.bashrc
 symlink $DOT/shell/bashrc ~/.bash_profile
 symlink $DOT/shell/vimrc ~/.vimrc
+mkdir -p ~/.vim && symlink $DOT/shell/vimtemplates ~/.vim/templates
 symlink $DOT/shell/gitconfig ~/.gitconfig
 symlink $DOT/shell/sshconfig ~/.ssh/config
 symlink $DOT/bin ~/bin

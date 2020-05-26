@@ -48,4 +48,6 @@ imap <C-@> <C-Space>
 nmap <C-t> :FufFile<CR>
 nmap <C-p> :FufFileWithCurrentBufferDir<CR>
 
+" Use extension templates if relevant
+autocmd BufNewFile * silent! 0r $HOME/.vim/templates/%:e.skeleton
 
