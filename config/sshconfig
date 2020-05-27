@@ -21,6 +21,6 @@ Host github.com
 
 Host *
     Include ~/dotfiles/host/current/sshconfig
-    Include ~/dotfiles/shell/proprietary/sshconfig
+    Include ~/dotfiles/config/proprietary/sshconfig
 
 

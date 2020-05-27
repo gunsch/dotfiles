@@ -20,7 +20,7 @@ function symlink() {
     exit 1;
   fi;
 
-  if [[ -e $2 ]]; then
+  if [[ -e "$2" || -L "$2" ]]; then
     if [[ "$($READLINK -f "$1")" == "$($READLINK -f "$2")" ]]; then
       # The file already exists, and it's the same symlink.
       return;
@@ -100,13 +100,13 @@ fi
 ###############################################################################
 print_header "Make sure our symlinks are in place..."
 
-symlink $DOT/shell/zshrc ~/.zshrc
-symlink $DOT/shell/bashrc ~/.bashrc
-symlink $DOT/shell/bashrc ~/.bash_profile
-symlink $DOT/shell/vimrc ~/.vimrc
-mkdir -p ~/.vim && symlink $DOT/shell/vimtemplates ~/.vim/templates
-symlink $DOT/shell/gitconfig ~/.gitconfig
-symlink $DOT/shell/sshconfig ~/.ssh/config
+symlink $DOT/config/zshrc ~/.zshrc
+symlink $DOT/config/bashrc ~/.bashrc
+symlink $DOT/config/bashrc ~/.bash_profile
+symlink $DOT/config/vimrc ~/.vimrc
+mkdir -p ~/.vim && symlink $DOT/config/vimtemplates ~/.vim/templates
+symlink $DOT/config/gitconfig ~/.gitconfig
+symlink $DOT/config/sshconfig ~/.ssh/config
 symlink $DOT/bin ~/bin
 
 # 2020-05-25: not used on amelia/serendipity/georgemichael.

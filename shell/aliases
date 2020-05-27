@@ -50,10 +50,12 @@ fi
 
 # Source proprietary rules.
 if [ -d "${SHELLDIR}/proprietary" ]; then
+  shopt -s nullglob
   for proprietary_file in "${SHELLDIR}/proprietary/"*; do
     echo "Loading ${proprietary_file}";
     . "${proprietary_file}";
   done
+  shopt -u nullglob
 fi
 
 ###########################################
