@@ -97,10 +97,15 @@ alias ackmk='ack --type=make'
 alias ackpy='ack --type=python'
 
 # Alternative tools, many from https://remysharp.com/2018/08/23/cli-improved
-alias cat='bat'
+# Use `bat` or `batcat` depending on which is available :(
+BAT=bat
+if which batcat >/dev/null 2>&1; then
+  BAT=batcat;
+fi
+alias cat='$BAT'
 alias find='fd'
 alias ping='prettyping --nolegend'
-alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias preview="fzf --preview '$BAT --color \"always\" {}'"
 # add support for ctrl+o to open selected file in VSCode 
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
 alias du="ncdu -rr -x --exclude .git --exclude node_modules"
