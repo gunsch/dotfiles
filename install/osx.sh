@@ -47,6 +47,10 @@ brew cask install iterm2 || true
 # Exception here for gunsch-macbookpro2 --- previous manual install
 brew cask install android-platform-tools || true
 
+# Brew auto-update!
+# autoupdate --start fails if already installed
+brew tap domt4/autoupdate && brew autoupdate --start || true
+
 # Special case (sshfs): do osxfuse, then sshfs
 brew cask install osxfuse
 brew install sshfs || true
