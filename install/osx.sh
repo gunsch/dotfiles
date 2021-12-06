@@ -26,6 +26,8 @@ brew install \
     bat \
     coreutils \
     fd \
+    gh \
+    jc \
     jq \
     magic-wormhole \
     mosh \

@@ -98,9 +98,17 @@ fi
 test -e "/usr/local/opt/nvm/nvm.sh" && source "/usr/local/opt/nvm/nvm.sh" --no-use  # This loads nvm
 test -e "/usr/local/opt/nvm/etc/bash_completion.d/nvm" && source "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+# Yarn additions
+if [ -d "${HOME}/.yarn/bin" ] ; then
+  export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+fi
+
 # OSX Catalina has an obnoxious warning about bash
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Add dotfiles/bin to the PATH
 export PATH="${PATH}:${HOME}/dotfiles/bin"
 
+if [[ $(which rbenv) ]]; then
+  eval "$(rbenv init -)"
+fi
