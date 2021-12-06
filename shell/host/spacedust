@@ -1,0 +1,1 @@
+export PATH="/Users/andrewgunsch/.ebcli-virtual-env/executables:$PATH"
