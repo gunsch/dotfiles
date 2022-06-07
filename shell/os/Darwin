@@ -17,3 +17,7 @@ fi
 if [[ "$ZSH_NAME" == "zsh" && -e ~/.iterm2_shell_integration.zsh ]]; then
   source /Users/gunsch/.iterm2_shell_integration.zsh
 fi
+
+# Better colors for directories etc.
+# https://www.cyberciti.biz/faq/apple-mac-osx-terminal-color-ls-output-option/
+export LSCOLORS=GxFxCxDxBxegedabagaced
