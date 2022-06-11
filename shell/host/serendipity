@@ -1,6 +1,6 @@
 # Rules for serendipity (HP Spectre x360)
 
-export PATH="$PATH:/home/gunsch/tools/flutter/bin"
+export PATH="$PATH:/home/gunsch/tools/flutter/bin:/home/gunsch/.local/bin"
 
 # Resets for SSH/Yubikey setup
 export GPG_TTY="$(tty)"
@@ -9,3 +9,27 @@ export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
 #   sign_and_send_pubkey: signing failed: agent refused operation
 gpg-connect-agent updatestartuptty /bye
 
+DESK_IP=192.168.0.101
+alias alessandra="ssh jesse@$DESK_IP"
+alias desk=alessandra
+alias qxlp="ssh -p 37912 gunsch@qxlp.net"
+
+sendhome () {
+  if [ $# -lt 2 ]
+  then
+    location="/media/Alessandra/Movies"
+  else
+    location="$2"
+  fi
+  file="$1"
+  scp "$file" jesse@$DESK_IP:~/Public/torrent/ && \
+    ssh jesse@$DESK_IP "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+    echo "transmission-remote -a ~/Public/torrent/\"$file\"" && \
+    tid=`alessandra transmission-remote -l | tail -2 | head -1 | awk '{print $1}'` && \
+    echo "Moving torrent $tid..." && \
+    ssh jesse@$DESK_IP "transmission-remote --torrent $tid --move $location" && \
+    echo "Starting torrent $tid..." && \
+    ssh jesse@$DESK_IP "transmission-remote --torrent $tid --start" && \
+    echo "Moving file to /tmp..." && \
+    mv "$file" /tmp
+}
