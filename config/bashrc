@@ -112,3 +112,6 @@ export PATH="${PATH}:${HOME}/dotfiles/bin"
 if [[ $(which rbenv) ]]; then
   eval "$(rbenv init -)"
 fi
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

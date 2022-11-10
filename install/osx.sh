@@ -15,7 +15,7 @@ print_header "brew, cask, and friends"
 
 if [[ ! $(which brew) ]]; then
   echo "brew not found. Trying to install...";
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Permissions seem to get reset regularly?
@@ -25,37 +25,48 @@ brew install \
     ack \
     bat \
     coreutils \
+    docker \
+    docker-compose \
     fd \
     gh \
+    htop \
     jc \
     jq \
     magic-wormhole \
     mosh \
     ncdu \
+    node \
     wget \
     || true  # Note: Brew has non-zero exit status if apps are already installed :(
 
 # Cask let you install Mac applications distributed as binaries.
-brew cask install \
+brew install --cask \
     alfred \
     caffeine \
+    docker \
     flux \
     github \
+    Google-chrome \
     hyperdock \
+    signal \
+    spotify \
+    telegram \
+    visual-studio-code \
     vlc
 
 # Exception here for arabelle --- previous web install
-brew cask install iterm2 || true
+brew install --cask iterm2 || true
 # Exception here for gunsch-macbookpro2 --- previous manual install
-brew cask install android-platform-tools || true
+brew install --cask android-platform-tools || true
 
 # Brew auto-update!
 # autoupdate --start fails if already installed
 brew tap domt4/autoupdate && brew autoupdate --start || true
 
 # Special case (sshfs): do osxfuse, then sshfs
-brew cask install osxfuse
-brew install sshfs || true
+# Note (2022-10: doesn't seem to work on current OSX version / new laptop)
+# brew install --cask osxfuse
+# brew install sshfs || true
 
 # Ask brew if everything is okay
 brew doctor
@@ -66,7 +77,9 @@ brew doctor
 print_header "Developer tools"
 
 # Python
-sudo easy_install pip
+# Note (2022-10: doesn't seem to work on current OSX version / new laptop)
+# Python3 and pip3 come by default
+# sudo easy_install pip
 
 
 ###############################################################################
@@ -76,6 +89,8 @@ print_header "Setting up OSX configs"
 
 # Rewrites Caps Lock to Escape. NOTE: this seems to be keyboard-dependent and might not
 # work for all Macs.
+# Checking System Update. Seems to be "com.apple.keyboard.modifiermapping.<VendorId>-<ProductId>-0"
+# i.e. on M1 it seems to be "com.apple.keyboard.modifiermapping.1452-834-0"
 defaults write -g com.apple.keyboard.modifiermapping.1452-630-0 -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>30064771113</integer><key>HIDKeyboardModifierMappingSrc</key><integer>30064771129</integer></dict>'
 
 # Enable trackpad tap to click for this user and for the login screen.
@@ -103,6 +118,9 @@ defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# disable period on double-space
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -int 0
 
 # Disable "natural" (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
