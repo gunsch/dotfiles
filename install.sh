@@ -100,6 +100,12 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   $DOT/install/linux.sh
 fi
 
+host_script="$DOT/install/host/$(hostname -s).sh"
+if [ -f $host_script ]; then
+  echo "Executing $host_script..."
+  $host_script;
+fi
+
 ###############################################################################
 # Symlink things to places we want
 ###############################################################################
