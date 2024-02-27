@@ -19,7 +19,7 @@ HOMEDIR="$(cd ~ && pwd -P)"
 export PATH="/usr/local/bin:${PATH}"
 export PATH="/usr/local/sbin:${PATH}"
 export PATH="${PATH}:${HOMEDIR}/bin"
-export PATH="${PATH}:${HOMEDIR}/go/bin"
+export PATH="${PATH}:/usr/local/go/bin"
 export PATH="${PATH}:${HOMEDIR}/depot_tools"
 if [ -d "${HOMEDIR}/bin/proprietary" ]; then
   export PATH="${PATH}:${HOMEDIR}/bin/proprietary"

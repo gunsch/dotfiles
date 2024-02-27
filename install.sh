@@ -64,6 +64,11 @@ function download() {
 # Initial configuration / setup
 ###############################################################################
 
+if [[ "${USER}" == "root" ]]; then
+  echo "This should not be run as root!"
+  exit 2
+fi
+
 DOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "dotfiles root: ${DOT}"
 
@@ -108,16 +113,6 @@ mkdir -p ~/.vim && symlink $DOT/config/vimtemplates ~/.vim/templates
 symlink $DOT/config/gitconfig ~/.gitconfig
 symlink $DOT/config/sshconfig ~/.ssh/config
 symlink $DOT/bin ~/bin
-
-# 2020-05-25: not used on amelia/serendipity/georgemichael.
-# causing problems though on amelia. maybe delete?
-# if [ -d "${DOT}/shell/proprietary" ]; then
-#   echo "ok"
-#   for alias_file in $DOT/shell/proprietary/.[^.]*; do
-#     echo "Symlinking ${alias_file}";
-#     symlink $alias_file ~/$(basename $alias_file);
-#   done
-# fi
 
 # Make a simple symlink at "host/current" to "host/$(hostname)" for config
 # files that can't do shell expansion.
