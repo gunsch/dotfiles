@@ -21,3 +21,6 @@ fi
 # Better colors for directories etc.
 # https://www.cyberciti.biz/faq/apple-mac-osx-terminal-color-ls-output-option/
 export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
