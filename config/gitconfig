@@ -27,7 +27,7 @@
 [alias]
     amend = commit --amend --reuse-message=HEAD
     new = checkout --track -b
-    wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+    wipe = !git add -A && git commit -n -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
     files = !git diff $(git rev-parse --abbrev-ref @{u}) --name-only
 	gone = ! git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
 [pager]

@@ -25,8 +25,6 @@ brew install \
     ack \
     bat \
     coreutils \
-    docker \
-    docker-compose \
     fd \
     gh \
     htop \
@@ -46,14 +44,13 @@ brew install --cask \
     docker \
     flux \
     github \
-    Google-chrome \
-    hyperdock \
     signal \
-    spotify \
     telegram \
     visual-studio-code \
     vlc
 
+brew install --cask Google-chrome || true
+brew install --cask spotify || true
 # Exception here for arabelle --- previous web install
 brew install --cask iterm2 || true
 # Exception here for gunsch-macbookpro2 --- previous manual install
@@ -147,6 +144,9 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dic
 # Disables MRU space ordering
 defaults write com.apple.dock mru-spaces -bool false
 
+# Disables emoji suggestion magic
+defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist emoji_enhancements -dict-add Enabled -bool NO
+
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
@@ -223,5 +223,6 @@ defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Close All" -str
 # Safari.app                                                                  #
 ###############################################################################
 
+# Disabling 2024-04
 # Enable developer tools (hidden by default)
-defaults write com.apple.Safari IncludeDebugMenu 1
+# defaults write com.apple.Safari IncludeDebugMenu 1

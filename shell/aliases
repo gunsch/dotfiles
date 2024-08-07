@@ -33,7 +33,9 @@ export EDITOR='vi'
 ## Other files to load
 
 # Common source sets
+. "${SHELLDIR}/docker"          # Docker aliases
 . "${SHELLDIR}/git"             # Git aliases
+. "${SHELLDIR}/github"          # Github aliases
 . "${SHELLDIR}/npm"             # NPM aliases/autocomplete
 
 # Source hostname-specific rules.
@@ -75,24 +77,18 @@ alias ll="ls -alF"
 alias lr="ls -lrt"
 
 # Faster navigation.
-cu() { if [ "$1" = "" ]; then cd ..; else for i in `seq 1 $1`; do cd ..; done; fi } 
+cu() { if [ "$1" = "" ]; then cd ..; else cd $(printf "%${1}s" | sed 's# #../#g'); fi } 
 
 # Prefer htop if available.
 if which htop 2&>/dev/null; then
   alias top="htop"
 fi
 
-# Screen/byobu
-alias rescreen='screen -raAd'
-alias bs="byobu new -s"
-alias br="byobu-select-session"
-alias bl="byobu list-sessions"
-
 # Searching/replacing.
-alias ackgyp='ack --type=gyp'
 alias ackjs='ack --type=js'
 alias ackjava='ack --type=java'
 alias ackcc='ack --type=cpp'
+alias ackgo='ack --type=go'
 alias ackmk='ack --type=make'
 alias ackpy='ack --type=python'
 
@@ -103,7 +99,7 @@ if which batcat >/dev/null 2>&1; then
   BAT=batcat;
 fi
 alias cat='$BAT'
-alias find='fd'
+alias fn='fd'
 alias ping='prettyping --nolegend'
 alias preview="fzf --preview '$BAT --color \"always\" {}'"
 # add support for ctrl+o to open selected file in VSCode 

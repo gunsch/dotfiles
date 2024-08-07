@@ -1,0 +1,7 @@
+[url "git@github.snooguts.net:"]
+	insteadOf = https://github.snooguts.net/
+
+# Override everything on this system to use reddit email
+[user]
+  email = andrew.gunsch@reddit.com
+

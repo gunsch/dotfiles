@@ -57,3 +57,6 @@ test -e "${HOME}/google-cloud-sdk/completion.zsh.inc" && source "${HOME}/google-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 test -e "${HOME}/.fzf.zsh" && source "${HOME}/.fzf.zsh"
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

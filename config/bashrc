@@ -37,10 +37,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [ -f ~/dotfiles/shell/aliases ]; then
-  . ~/dotfiles/shell/aliases
-fi
-
 # This needs to stay after fasd setup for valid return codes.
 # Color-prompt.
 export PROMPT_COMMAND=__prompt_command
@@ -87,16 +83,9 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 test -e "/etc/profile.d/undistract-me.sh" && source /etc/profile.d/undistract-me.sh
 test -e "${HOME}/.fzf.bash" && source "${HOME}/.fzf.bash"
 
-# same for NVM, but...
-# (a) default to 10.15.3
-# (b) use "--no-use" option, otherwise it adds ~1s to every bash startup
 export NVM_DIR="$HOME/.nvm"
-DEFAULT_NODE_VERSION='10.15.3'
-if [ -d "${HOME}/.nvm/versions/node/v${DEFAULT_NODE_VERSION}/bin" ] ; then
-  PATH="${HOME}/.nvm/versions/node/v${DEFAULT_NODE_VERSION}/bin:${PATH}"
-fi
-test -e "/usr/local/opt/nvm/nvm.sh" && source "/usr/local/opt/nvm/nvm.sh" --no-use  # This loads nvm
-test -e "/usr/local/opt/nvm/etc/bash_completion.d/nvm" && source "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Yarn additions
 if [ -d "${HOME}/.yarn/bin" ] ; then
@@ -108,8 +97,22 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Add dotfiles/bin to the PATH
 export PATH="${PATH}:${HOME}/dotfiles/bin"
+# Add go/bin for go-installed stuff
+export PATH="${PATH}:${HOME}/go/bin"
 
 if [[ $(which rbenv) ]]; then
   eval "$(rbenv init -)"
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export AWS_SDK_LOAD_CONFIG=true
+
+# Load all aliases, host-specific stuff, etc.
+if [ -f ~/dotfiles/shell/aliases ]; then
+  . ~/dotfiles/shell/aliases
+fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

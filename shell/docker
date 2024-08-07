@@ -1,0 +1,2 @@
+# Aliases for docker
+alias docker-shell="docker run --rm -it --entrypoint bash"
