@@ -19,7 +19,6 @@ alias c="git checkout"
 alias d="git diff"
 #alias m="git commit -a -m"
 alias s="git status"
-alias x="git5 export"
 
 if [ "$CURRENT_SHELL" = "bash" ]; then
   # Enable git completion for "c" and "b"
