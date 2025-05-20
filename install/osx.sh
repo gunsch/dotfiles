@@ -90,6 +90,9 @@ print_header "Setting up OSX configs"
 # i.e. on M1 it seems to be "com.apple.keyboard.modifiermapping.1452-834-0"
 defaults write -g com.apple.keyboard.modifiermapping.1452-630-0 -array-add '<dict><key>HIDKeyboardModifierMappingDst</key><integer>30064771113</integer><key>HIDKeyboardModifierMappingSrc</key><integer>30064771129</integer></dict>'
 
+# Deletes "Minimize" shortcut since it's annoying
+defaults write -g NSUserKeyEquivalents -dict-add 'Minimize' '\0'
+
 # Enable trackpad tap to click for this user and for the login screen.
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -218,6 +221,17 @@ defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Quit Google Chr
 # Change "Close Window" shortcut key to Cmd+Ctrl+Shift+W
 defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Close Window" -string "@^~\$w"
 defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Close All" -string "@^~\$a"
+
+###############################################################################
+# Hiding various apps
+###############################################################################
+
+# Disable "Hide Others" shortcut key.
+defaults write "Apple Global Domain" NSUserKeyEquivalents -dict-add "Hide Others" nil
+defaults write com.google.Chrome NSUserKeyEquivalents -dict-add 'Hide Google Chrome' '\0'
+defaults write com.microsoft.VSCode NSUserKeyEquivalents -dict-add 'Hide Visual Studio Code' '\0'
+defaults write com.googlecode.iterm2 NSUserKeyEquivalents -dict-add 'Hide iTerm2' '\0'
+defaults write com.tinyspeck.slackmacgap NSUserKeyEquivalents -dict-add 'Hide Slack' '\0'
 
 ###############################################################################
 # Safari.app                                                                  #

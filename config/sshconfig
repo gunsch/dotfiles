@@ -19,8 +19,5 @@ Host github.com
     # IdentityFile should be at this location (or symlinked) on each machine
     IdentityFile ~/.ssh/id_rsa.github
 
-Host *
-    Include ~/dotfiles/host/current/sshconfig
-    Include ~/dotfiles/config/proprietary/sshconfig
-
-
+Include ~/dotfiles/host/current/sshconfig
+Include ~/dotfiles/config/proprietary/sshconfig
