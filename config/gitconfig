@@ -51,3 +51,5 @@
   whitespace = red reverse
 [merge "ours"]
 	driver = true
+[safe]
+	directory = /opt/plexupdate

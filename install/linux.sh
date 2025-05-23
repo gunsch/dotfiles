@@ -51,6 +51,7 @@ sudo apt -y install \
    magic-wormhole \
    mosh \
    ncdu \
+   scdaemon \
    terminator \
    transmission-cli \
    transmission-daemon \

@@ -1,0 +1,7 @@
+#!/bin/bash
+# rules for ardor (2024 desktop rebuild)
+
+export PATH="${PATH}:${HOME}/go/bin"
+
+alias qxlp="ssh -p 37912 gunsch@qxlp.net"
+
