@@ -16,6 +16,8 @@ print_header "brew, cask, and friends"
 if [[ ! $(which brew) ]]; then
   echo "brew not found. Trying to install...";
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "brew installed, restart your terminal and re-run the installer."
+  exit 0;
 fi
 
 # Permissions seem to get reset regularly?
@@ -44,10 +46,13 @@ brew install --cask \
     docker \
     flux \
     github \
+    hyperkey \
+    maccy \
     signal \
     telegram \
     visual-studio-code \
-    vlc
+    vlc \
+    || true
 
 brew install --cask Google-chrome || true
 brew install --cask spotify || true
@@ -66,7 +71,7 @@ brew tap domt4/autoupdate && brew autoupdate --start || true
 # brew install sshfs || true
 
 # Ask brew if everything is okay
-brew doctor
+brew doctor || true
 
 ###############################################################################
 # Developer tools
@@ -148,7 +153,7 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dic
 defaults write com.apple.dock mru-spaces -bool false
 
 # Disables emoji suggestion magic
-defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist emoji_enhancements -dict-add Enabled -bool NO
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist emoji_enhancements -dict-add Enabled -bool NO
 
 ###############################################################################
 # Finder                                                                      #

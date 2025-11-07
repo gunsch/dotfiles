@@ -72,23 +72,6 @@ fi
 DOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "dotfiles root: ${DOT}"
 
-# Find "readlink".
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  if [[ ! $(which greadlink) ]]; then
-    echo "greadlink not found. Try \`brew install coreutils\`";
-    exit 1;
-  fi;
-  READLINK="greadlink"
-else
-  READLINK="readlink"
-fi
-echo "readlink utility: ${READLINK}"
-
-if [[ "$($READLINK -f "$(dirname "${BASH_SOURCE[0]}" )")" != "$($READLINK -f ~/dotfiles)" ]]; then
-  echo "Dotfiles should be checked out to ~/dotfiles".
-  exit 1;
-fi
-
 ###############################################################################
 # OS-specific sub-scripts
 ###############################################################################
@@ -107,6 +90,24 @@ if [ -f $host_script ]; then
 fi
 
 ###############################################################################
+# Find "readlink".
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  if [[ ! $(which greadlink) ]]; then
+    echo "greadlink not found. Try \`brew install coreutils\`";
+    exit 1;
+  fi;
+  READLINK="greadlink"
+else
+  READLINK="readlink"
+fi
+echo "readlink utility: ${READLINK}"
+
+if [[ "$($READLINK -f "$(dirname "${BASH_SOURCE[0]}" )")" != "$($READLINK -f ~/dotfiles)" ]]; then
+  echo "Dotfiles should be checked out to ~/dotfiles".
+  exit 1;
+fi
+
+###############################################################################
 # Symlink things to places we want
 ###############################################################################
 print_header "Make sure our symlinks are in place..."
@@ -117,7 +118,7 @@ symlink $DOT/config/bashrc ~/.bash_profile
 symlink $DOT/config/vimrc ~/.vimrc
 mkdir -p ~/.vim && symlink $DOT/config/vimtemplates ~/.vim/templates
 symlink $DOT/config/gitconfig ~/.gitconfig
-symlink $DOT/config/sshconfig ~/.ssh/config
+mkdir -p ~/.ssh && symlink $DOT/config/sshconfig ~/.ssh/config
 symlink $DOT/bin ~/bin
 
 # Make a simple symlink at "host/current" to "host/$(hostname)" for config
