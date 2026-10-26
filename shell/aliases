@@ -98,7 +98,8 @@ BAT=bat
 if which batcat >/dev/null 2>&1; then
   BAT=batcat;
 fi
-alias cat='$BAT'
+# Tried this for a long time, but I think it fucks up my agents.
+# alias cat='$BAT'
 alias fn='fd'
 alias ping='prettyping --nolegend'
 alias preview="fzf --preview '$BAT --color \"always\" {}'"

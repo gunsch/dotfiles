@@ -4,7 +4,7 @@
 export PATH="${PATH}:/Users/andrew.gunsch/src/grpc/cmake/build"
 
 if ! which node > /dev/null; then
-    nvm use 22
+    nvm use 24
 fi
 alias mydevvit=/Users/andrew.gunsch/src/devvit/packages/cli/bin/devvit.js
 
@@ -14,3 +14,10 @@ source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
 # Destroy the monorepo and rebuild
 alias nuke="yarn cache clean --all && git clean -dffx && yarn && yarn build --force"
 
+# that's where it is, I guess
+export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
+
+snoocode() {
+    cd "/src/snoocode" && ./run.sh "$@"
+}
+export SNOOCODE_DIR="/src/snoocode"

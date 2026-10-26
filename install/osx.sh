@@ -32,6 +32,7 @@ brew install \
     htop \
     jc \
     jq \
+    maccy \
     magic-wormhole \
     mosh \
     ncdu \

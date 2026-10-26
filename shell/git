@@ -116,3 +116,15 @@ function git_authorize() {
   echo "    ssh -T git@github.com"
 }
 
+# Non-interactive shells (i.e. LLM agents) should use default pager
+if [[ $- = *i* ]] ; then
+  echo "Interactive shell"
+
+  # Overwrite git to set params that I *don't* want to set for Cursor.
+  git() {
+    command git \
+      -c pager.diff='diff-so-fancy | less --tabs=4 -RFX' \
+      -c pager.show='diff-so-fancy | less --tabs=4 -RFX' \
+      "$@"
+  }
+fi

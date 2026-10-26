@@ -1,3 +1,6 @@
+Include ~/dotfiles/config/proprietary/sshconfig
+Include ~/dotfiles/host/current/sshconfig
+
 Host *
     ControlMaster auto
     ControlPath ~/.ssh/controlmasters/%C
@@ -18,6 +21,3 @@ Host github.com
     User gunsch
     # IdentityFile should be at this location (or symlinked) on each machine
     IdentityFile ~/.ssh/id_rsa.github
-
-Include ~/dotfiles/host/current/sshconfig
-Include ~/dotfiles/config/proprietary/sshconfig

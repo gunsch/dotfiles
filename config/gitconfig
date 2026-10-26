@@ -29,10 +29,7 @@
     new = checkout --track -b
     wipe = !git add -A && git commit -n -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
     files = !git diff $(git rev-parse --abbrev-ref @{u}) --name-only
-	gone = ! git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
-[pager]
-       diff = diff-so-fancy | less --tabs=4 -RFX
-       show = diff-so-fancy | less --tabs=4 -RFX
+	gone = "!f() {\n  git fetch -p || return\n  git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads |\n    awk '$2 == \"[gone]\" {print $1}' |\n    while read -r branch; do\n      [ -n \"$branch\" ] || continue\n      worktree_path=$(git worktree list --porcelain | awk -v want=\"refs/heads/$branch\" '\n        $1 == \"worktree\" { path = substr($0, 10) }\n        $1 == \"branch\" && $2 == want { print path }\n      ')\n      if [ -n \"$worktree_path\" ]; then\n        git worktree remove --force -- \"$worktree_path\" || continue\n      fi\n      git branch -D -- \"$branch\"\n    done\n};\nf"
 [diff-so-fancy]
   stripLeadingSymbols = false
 [color]
@@ -53,3 +50,8 @@
 	driver = true
 [safe]
 	directory = /opt/plexupdate
+[maintenance]
+	repo = /Users/andrew.gunsch/src/devvit
+[credential "https://github.snooguts.net"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

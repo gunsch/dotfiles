@@ -60,3 +60,11 @@ test -e "${HOME}/.fzf.zsh" && source "${HOME}/.fzf.zsh"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# --- snoocode-start ---
+# Snoocode - OpenCode launcher for Reddit development
+snoocode() {
+    cd "/src/snoocode" && ./run.sh "$@"
+}
+export SNOOCODE_DIR="/src/snoocode"
+# --- snoocode-end ---
