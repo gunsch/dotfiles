@@ -50,6 +50,7 @@ brew install --cask \
     hyperkey \
     maccy \
     signal \
+    stay \
     telegram \
     visual-studio-code \
     vlc \
@@ -233,7 +234,7 @@ defaults write com.google.Chrome NSUserKeyEquivalents -dict-add "Close All" -str
 ###############################################################################
 
 # Disable "Hide Others" shortcut key.
-defaults write "Apple Global Domain" NSUserKeyEquivalents -dict-add "Hide Others" nil
+defaults write "Apple Global Domain" NSUserKeyEquivalents -dict-add "Hide Others" '\U200B'
 defaults write com.google.Chrome NSUserKeyEquivalents -dict-add 'Hide Google Chrome' '\0'
 defaults write com.microsoft.VSCode NSUserKeyEquivalents -dict-add 'Hide Visual Studio Code' '\0'
 defaults write com.googlecode.iterm2 NSUserKeyEquivalents -dict-add 'Hide iTerm2' '\0'
